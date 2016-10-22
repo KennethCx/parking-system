@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.Toast;
 
@@ -578,23 +579,23 @@ public class HVScrollView extends FrameLayout {
 
             case MotionEvent.ACTION_MOVE:
                 if (mode == MODE_ZOOM) {                //如果是放大模式
-                    LinearLayout linearLayout = (LinearLayout) getChildAt(0);
+                    RelativeLayout relativeLayout = (RelativeLayout) getChildAt(0);
                     newDist = spacing(ev);              //计算移动后的手指间距
                     float scale = newDist / oldDist;
                     oldDist = newDist;                  //更新手指间距
                     scale *= lastScale;
-                    /*if ((getWidth() * ZOOM_MIN <= linearLayout.getWidth() * scale &&                 //缩放范围为长或宽的 0.8倍-4倍
-                            getHeight() * ZOOM_MIN <= linearLayout.getHeight() * scale) &&
-                            getWidth() * ZOOM_MAX >= linearLayout.getWidth() * scale &&
-                            getHeight() * ZOOM_MAX >= linearLayout.getHeight() * scale) {
+                    /*if ((getWidth() * ZOOM_MIN <= relativeLayout.getWidth() * scale &&                 //缩放范围为长或宽的 0.8倍-4倍
+                            getHeight() * ZOOM_MIN <= relativeLayout.getHeight() * scale) &&
+                            getWidth() * ZOOM_MAX >= relativeLayout.getWidth() * scale &&
+                            getHeight() * ZOOM_MAX >= relativeLayout.getHeight() * scale) {
                         lastScale = scale;
                     } else if (scale < lastScale) {         //进行缩小操作
-                        scale = lastScale = (getWidth() * ZOOM_MIN <= linearLayout.getWidth() * scale ?
-                                getHeight() * ZOOM_MIN / linearLayout.getHeight() : getWidth() * ZOOM_MIN / linearLayout.getWidth());
+                        scale = lastScale = (getWidth() * ZOOM_MIN <= relativeLayout.getWidth() * scale ?
+                                getHeight() * ZOOM_MIN / relativeLayout.getHeight() : getWidth() * ZOOM_MIN / relativeLayout.getWidth());
 
                     } else {                        //进行放大操作
-                        scale = lastScale = (getWidth() * ZOOM_MAX >= linearLayout.getWidth() * scale ?
-                                getHeight() * ZOOM_MAX / linearLayout.getHeight() : getWidth() * ZOOM_MAX / linearLayout.getWidth());
+                        scale = lastScale = (getWidth() * ZOOM_MAX >= relativeLayout.getWidth() * scale ?
+                                getHeight() * ZOOM_MAX / relativeLayout.getHeight() : getWidth() * ZOOM_MAX / relativeLayout.getWidth());
                         scale = lastScale = ZOOM_MAX/2;
                     }*/
                     if (ZOOM_MIN <= scale && scale <= ZOOM_MAX) {       //缩放范围为ZOOM_MIN倍 到 ZOOM_MAX倍
@@ -604,11 +605,9 @@ public class HVScrollView extends FrameLayout {
                     } else {
                         lastScale = scale = ZOOM_MAX;
                     }
-
-                    System.out.println(scale);
-                    //使用ViewHelper对LinearLayout进行放大缩小
-                    ViewHelper.setScaleX(linearLayout, scale);
-                    ViewHelper.setScaleY(linearLayout, scale);
+                    //使用ViewHelper对relativeLayout进行放大缩小
+                    ViewHelper.setScaleX(relativeLayout, scale);
+                    ViewHelper.setScaleY(relativeLayout, scale);
 
                 } else if (mIsBeingDragged) {
                     // Scroll to follow the motion event
