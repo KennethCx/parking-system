@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.cx.parkingmanagementsystem.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <!--<android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -19,11 +19,12 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>-->
 
     <com.example.cx.parkingmanagementsystem.HVScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/HVScrollView">
 
         <include layout="@layout/content_main" />
     </com.example.cx.parkingmanagementsystem.HVScrollView>

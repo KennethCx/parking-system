@@ -10,6 +10,8 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.nineoldandroids.view.ViewHelper;
@@ -22,12 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //view = View.inflate(this, R.layout.content_main, null);/////////
-       // mScaleGestureDetector = new ScaleGestureDetector(this,////////
-       //         new ScaleGestureListener());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -37,8 +36,24 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        initScrollView();
     }
 
+    public void initScrollView() {
+        HVScrollView hvScrollView = (HVScrollView) findViewById(R.id.HVScrollView);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.rl);
+        float scale = hvScrollView.getHeight() * 1.0f / relativeLayout.getHeight();
+        relativeLayout.setLayoutParams(
+                new HVScrollView.LayoutParams((int) (relativeLayout.getWidth() * scale), hvScrollView.getHeight()));
+        System.out.println("width = " + (int) (relativeLayout.getWidth() * scale) + "height" + hvScrollView.getHeight());
+    }
+
+    public void zoom(View view) {
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.rl);
+        relativeLayout.setLayoutParams(
+                new com.example.cx.parkingmanagementsystem.HVScrollView.LayoutParams((int) (relativeLayout.getWidth() * 0.5),
+                        (int) (relativeLayout.getHeight() * 0.5)));
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -60,52 +75,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    /*
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        Toast.makeText(this,"!!???!",Toast.LENGTH_SHORT).show();
-        // 返回给ScaleGestureDetector来处理
-        return mScaleGestureDetector.onTouchEvent(event);
-    }
-
-    public class ScaleGestureListener implements
-            ScaleGestureDetector.OnScaleGestureListener {
-
-        private float scale;
-        private float preScale = 1;// 默认前一次缩放比例为1
-
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-
-            float previousSpan = detector.getPreviousSpan();
-            float currentSpan = detector.getCurrentSpan();
-            if (currentSpan < previousSpan) {
-                // 缩小
-                // scale = preScale-detector.getScaleFactor()/3;
-                scale = preScale - (previousSpan - currentSpan) / 1000;
-            } else {
-                // 放大
-                // scale = preScale+detector.getScaleFactor()/3;
-                scale = preScale + (currentSpan - previousSpan) / 1000;
-            }
-
-            // 缩放view
-            ViewHelper.setScaleX(view, scale );// x方向上缩小
-            ViewHelper.setScaleY(view, scale );// y方向上缩小
-
-            return false;
-        }
-
-        @Override
-        public boolean onScaleBegin(ScaleGestureDetector detector) {
-            // 一定要返回true才会进入onScale()这个函数
-            return true;
-        }
-
-        @Override
-        public void onScaleEnd(ScaleGestureDetector detector) {
-            preScale = scale;//记录本次缩放比例
-        }
-    }
-    */
 }

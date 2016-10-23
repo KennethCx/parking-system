@@ -2,46 +2,33 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="你好吗你好吗你好吗你好吗你好吗你好吗"
-        android:textSize="100dp"/>
-
+        android:text="哼"
+        android:layout_below="@+id/textView" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="你好吗你好吗你好吗你好吗你好吗你好吗"
-        android:textSize="100dp"/> <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="你好吗你好吗你好吗你好吗你好吗你好吗"
-    android:textSize="100dp"
-    android:layout_alignTop="@+id/textView"
-    android:layout_alignParentStart="true"
-    android:layout_marginStart="261dp"
-    android:layout_marginTop="66dp" /> <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="你好吗你好吗你好吗你好吗你好吗你好吗"
-    android:textSize="100dp"
-    android:layout_marginTop="478dp"
-    android:id="@+id/textView"
-    android:layout_marginStart="153dp"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentStart="true" />
+        android:text="哈"
+        android:id="@+id/textView" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="你好吗"
+        android:id="@+id/textView2" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="hello"
-        android:textSize="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="337dp"
-        android:layout_marginBottom="40dp"
-        android:id="@+id/button" />
+        android:onClick="zoom"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
