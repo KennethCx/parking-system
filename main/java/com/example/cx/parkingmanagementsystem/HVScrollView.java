@@ -1,39 +1,32 @@
 package com.example.cx.parkingmanagementsystem;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
-import android.widget.Toast;
 
-import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Reference to ScrollView and HorizontalScrollView
  */
 public class HVScrollView extends FrameLayout {
+
+    static private boolean firstTime = true;
 
     //OnTouchEvent的模式
     private static final int MODE_DRAG = 0;
@@ -44,15 +37,16 @@ public class HVScrollView extends FrameLayout {
     private float oldDist = 1;
     private float newDist = 1;
 
+    //停车场图片宽高
+    private final int PicHeight = BitmapFactory.decodeResource(this.getResources(), R.drawable.background).getHeight();
+    private final int PicWidth = BitmapFactory.decodeResource(this.getResources(), R.drawable.background).getWidth();
+
     //最后一次的缩放比例
     private float lastScale = 1;
 
     //缩放比例
     private static final float ZOOM_MIN = (float) 1;
     private static final float ZOOM_MAX = (float) 2;
-    private final int PicHeight = BitmapFactory.decodeResource(this.getResources(), R.drawable.background).getHeight();
-    private final int PicWidth = BitmapFactory.decodeResource(this.getResources(), R.drawable.background).getWidth();
-
 
     static final int ANIMATED_SCROLL_GAP = 250;
 
@@ -524,7 +518,7 @@ public class HVScrollView extends FrameLayout {
     /*
     *计算两指触屏的时候两个手指之间的距离
     */
-    private float spacing(MotionEvent ev) {
+    public float spacing(MotionEvent ev) {
         float x = 0, y = 0;
         try {
             x = ev.getX(0) - ev.getX(1);
@@ -532,6 +526,7 @@ public class HVScrollView extends FrameLayout {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+
         return (float) Math.sqrt(x * x + y * y);
     }
 
@@ -600,7 +595,7 @@ public class HVScrollView extends FrameLayout {
                     RelativeLayout relativeLayout = (RelativeLayout) getChildAt(0);        //获取布局
                     relativeLayout.setLayoutParams(                                        //重新设置布局大小
                             new HVScrollView.LayoutParams(
-                                    (int) (PicWidth * scale),(int) (PicHeight * scale)));
+                                    (int) (PicWidth * scale), (int) (PicHeight * scale)));
                 } else if (mIsBeingDragged) {
                     // Scroll to follow the motion event
                     final int activePointerIndex = ev.findPointerIndex(mActivePointerId);
@@ -1439,7 +1434,7 @@ public class HVScrollView extends FrameLayout {
     /**
      * When looking for focus in children of a scroll view, need to be a little
      * more careful not to give focus to something that is scrolled off screen.
-     * <p>
+     * <p/>
      * This is more expensive than the default {@link android.view.ViewGroup}
      * implementation, otherwise this behavior might have been made the default.
      */
@@ -1498,7 +1493,12 @@ public class HVScrollView extends FrameLayout {
         }
         mChildToScrollTo = null;
 
-        // Calling this with the present values causes it to re-clam them   
+        if (firstTime) {
+            firstTime = false;
+            scrollTo((PicWidth - getWidth()) / 2, (PicHeight - getHeight()) / 2);
+            return;
+        }
+        // Calling this with the present values causes it to re-clam them
         scrollTo(getScrollX(), getScrollY());
     }
 
@@ -1510,9 +1510,9 @@ public class HVScrollView extends FrameLayout {
         if (null == currentFocused || this == currentFocused)
             return;
 
-        // If the currently-focused view was visible on the screen when the   
-        // screen was at the old height, then scroll the screen to make that   
-        // view visible with the new screen height.   
+        // If the currently-focused view was visible on the screen when the
+        // screen was at the old height, then scroll the screen to make that
+        // view visible with the new screen height.
         if (isWithinDeltaOfScreenV(currentFocused, 0, oldh)) {
             currentFocused.getDrawingRect(mTempRect);
             offsetDescendantRectToMyCoords(currentFocused, mTempRect);
@@ -1532,6 +1532,7 @@ public class HVScrollView extends FrameLayout {
     /**
      * Return true if child is an descendant of parent, (or equal to the parent).
      */
+
     private boolean isViewDescendantOf(View child, View parent) {
         if (child == parent) {
             return true;
@@ -1580,7 +1581,7 @@ public class HVScrollView extends FrameLayout {
 
     /**
      * {@inheritDoc}
-     * <p>
+     * <p/>
      * <p>This version also clamps the scrolling to the bounds of our child.
      */
     @Override
