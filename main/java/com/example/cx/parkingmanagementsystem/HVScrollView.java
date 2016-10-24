@@ -20,6 +20,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
+import com.example.cx.parkingmanagementsystem.electronics.Light;
+
 
 /**
  * Reference to ScrollView and HorizontalScrollView
@@ -584,18 +586,30 @@ public class HVScrollView extends FrameLayout {
                     float scale = newDist / oldDist;
                     oldDist = newDist;                  //更新手指间距
                     scale *= lastScale;
-                    if (ZOOM_MIN <= scale && scale <= ZOOM_MAX) {       //缩放范围为ZOOM_MIN倍 到 ZOOM_MAX倍
-                        lastScale = scale;
-                    } else if (scale < lastScale) {
-                        lastScale = scale = ZOOM_MIN;
-                    } else {
-                        lastScale = scale = ZOOM_MAX;
+                    if (!(ZOOM_MIN <= scale && scale <= ZOOM_MAX)) {       //缩放范围为ZOOM_MIN倍 到 ZOOM_MAX倍
+                        if (scale < lastScale) {
+                            scale = ZOOM_MIN;
+                        } else {
+                            scale = ZOOM_MAX;
+                        }
                     }
 
                     RelativeLayout relativeLayout = (RelativeLayout) getChildAt(0);        //获取布局
                     relativeLayout.setLayoutParams(                                        //重新设置布局大小
                             new HVScrollView.LayoutParams(
                                     (int) (PicWidth * scale), (int) (PicHeight * scale)));
+
+                    float X, Y;
+                    for (int i = 0; i < relativeLayout.getChildCount(); i++) {
+
+                        View elec = relativeLayout.getChildAt(i);
+                        X = elec.getX() / lastScale;
+                        Y = elec.getY() / lastScale;
+                        elec.setX(X * scale);
+                        elec.setY(Y * scale);
+                    }
+                    lastScale = scale;
+
                 } else if (mIsBeingDragged) {
                     // Scroll to follow the motion event
                     final int activePointerIndex = ev.findPointerIndex(mActivePointerId);

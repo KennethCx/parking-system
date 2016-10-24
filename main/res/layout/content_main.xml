@@ -5,30 +5,26 @@
     android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="哼"
-        android:layout_below="@+id/textView" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="哈"
-        android:id="@+id/textView" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="你好吗"
-        android:id="@+id/textView2" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hello"
-        android:onClick="zoom"
-        android:layout_centerVertical="true"
+        android:text="飒"
+        android:layout_marginStart="151dp"
+        android:layout_marginTop="78dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <com.example.cx.parkingmanagementsystem.electronics.Light
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/lightbutton"
+        android:layout_marginStart="38dp"
+        android:layout_below="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginTop="28dp" />
+
 </RelativeLayout>
