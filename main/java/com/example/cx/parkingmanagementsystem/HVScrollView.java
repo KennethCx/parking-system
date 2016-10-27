@@ -15,9 +15,13 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.AnimationUtils;
+import android.view.animation.PathInterpolator;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
+
+import com.example.cx.parkingmanagementsystem.items.*;
 
 
 /**
@@ -596,14 +600,32 @@ public class HVScrollView extends FrameLayout {
                             new HVScrollView.LayoutParams(
                                     (int) (PicWidth * scale), (int) (PicHeight * scale)));
 
-                    float X, Y;
+                    float X = 0, Y = 0;                                                             //设置空间布局位置
                     for (int i = 0; i < relativeLayout.getChildCount(); i++) {
+                        View child = relativeLayout.getChildAt(i);
+                        X = child.getX() / lastScale;
+                        Y = child.getY() / lastScale;
+                        if (child instanceof Parkingspace_H) {        //如果控件是停车位
+                            Parkingspace_H ps = (Parkingspace_H) child;
+                            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ps.getLayoutParams();
+                            layoutParams.height = (int) (ps.getHEIGHT() * scale);
+                            layoutParams.width = (int) (ps.getWIDTH() * scale);
+                            ps.setLayoutParams(layoutParams);
+                        } else if (child instanceof Parkingspace_V) {
+                            Parkingspace_V ps = (Parkingspace_V) child;
+                            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ps.getLayoutParams();
+                            layoutParams.height = (int) (ps.getHEIGHT() * scale);
+                            layoutParams.width = (int) (ps.getWIDTH() * scale);
+                            /*Parkingspace_V ps = (Parkingspace_V) relativeLayout.getChildAt(i);
+                            ps.setLayoutParams(
+                                    new RelativeLayout.LayoutParams(
+                                            (int) (ps.getWIDTH() * scale), (int) (ps.getHEIGHT() * scale)
+                                    )
+                            ); */
 
-                        View elec = relativeLayout.getChildAt(i);
-                        X = elec.getX() / lastScale;
-                        Y = elec.getY() / lastScale;
-                        elec.setX(X * scale);
-                        elec.setY(Y * scale);
+                        }
+                        child.setX(X * scale);
+                        child.setY(Y * scale);
                     }
                     lastScale = scale;
 
@@ -1445,7 +1467,7 @@ public class HVScrollView extends FrameLayout {
     /**
      * When looking for focus in children of a scroll view, need to be a little
      * more careful not to give focus to something that is scrolled off screen.
-     * <p/>
+     * <p>
      * This is more expensive than the default {@link android.view.ViewGroup}
      * implementation, otherwise this behavior might have been made the default.
      */
@@ -1592,7 +1614,7 @@ public class HVScrollView extends FrameLayout {
 
     /**
      * {@inheritDoc}
-     * <p/>
+     * <p>
      * <p>This version also clamps the scrolling to the bounds of our child.
      */
     @Override
