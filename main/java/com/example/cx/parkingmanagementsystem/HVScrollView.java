@@ -602,30 +602,28 @@ public class HVScrollView extends FrameLayout {
 
                     float X = 0, Y = 0;                                                             //设置空间布局位置
                     for (int i = 0; i < relativeLayout.getChildCount(); i++) {
-                        View child = relativeLayout.getChildAt(i);
-                        X = child.getX() / lastScale;
-                        Y = child.getY() / lastScale;
-                        if (child instanceof Parkingspace_H) {        //如果控件是停车位
-                            Parkingspace_H ps = (Parkingspace_H) child;
-                            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ps.getLayoutParams();
-                            layoutParams.height = (int) (ps.getHEIGHT() * scale);
-                            layoutParams.width = (int) (ps.getWIDTH() * scale);
-                            ps.setLayoutParams(layoutParams);
-                        } else if (child instanceof Parkingspace_V) {
-                            Parkingspace_V ps = (Parkingspace_V) child;
-                            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ps.getLayoutParams();
-                            layoutParams.height = (int) (ps.getHEIGHT() * scale);
-                            layoutParams.width = (int) (ps.getWIDTH() * scale);
-                            /*Parkingspace_V ps = (Parkingspace_V) relativeLayout.getChildAt(i);
-                            ps.setLayoutParams(
-                                    new RelativeLayout.LayoutParams(
-                                            (int) (ps.getWIDTH() * scale), (int) (ps.getHEIGHT() * scale)
-                                    )
-                            ); */
-
+                        RelativeLayout subRelativeLayout = (RelativeLayout) relativeLayout.getChildAt(i);       //获取子布局
+                        for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {                           //遍历子布局中的控件
+                            View child = subRelativeLayout.getChildAt(j);
+                            X = child.getX() / lastScale;                                                       //获得控件原来的坐标值
+                            Y = child.getY() / lastScale;
+                            if (child instanceof Parkingspace_H) {        //如果控件是停车位则放大停车位
+                                Parkingspace_H ps = (Parkingspace_H) child;
+                                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ps.getLayoutParams();
+                                layoutParams.height = (int) (ps.getHEIGHT() * scale);
+                                layoutParams.width = (int) (ps.getWIDTH() * scale);
+                                ps.setLayoutParams(layoutParams);
+                            } else if (child instanceof Parkingspace_V) {
+                                Parkingspace_V ps = (Parkingspace_V) child;
+                                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ps.getLayoutParams();
+                                layoutParams.height = (int) (ps.getHEIGHT() * scale);
+                                layoutParams.width = (int) (ps.getWIDTH() * scale);
+                                ps.setLayoutParams(layoutParams);
+                            }
+                            //设置缩放视图后的控件的坐标
+                            child.setX(X * scale);
+                            child.setY(Y * scale);
                         }
-                        child.setX(X * scale);
-                        child.setY(Y * scale);
                     }
                     lastScale = scale;
 
@@ -1467,7 +1465,7 @@ public class HVScrollView extends FrameLayout {
     /**
      * When looking for focus in children of a scroll view, need to be a little
      * more careful not to give focus to something that is scrolled off screen.
-     * <p>
+     * <p/>
      * This is more expensive than the default {@link android.view.ViewGroup}
      * implementation, otherwise this behavior might have been made the default.
      */
@@ -1528,7 +1526,19 @@ public class HVScrollView extends FrameLayout {
 
         if (firstTime) {
             firstTime = false;
-            scrollTo((PicWidth - getWidth()) / 2, (PicHeight - getHeight()) / 2);
+            scrollTo((PicWidth - getWidth()) / 2, (PicHeight - getHeight()) / 2);       //滚动到图片正中间
+
+            //调整子布局大小
+            RelativeLayout relativeLayout = (RelativeLayout) getChildAt(0);
+            RelativeLayout sublayout;
+            RelativeLayout.LayoutParams layoutParams;
+            for (int i = 0; i < relativeLayout.getChildCount(); i++) {
+                sublayout = (RelativeLayout) relativeLayout.getChildAt(i);
+                layoutParams = (RelativeLayout.LayoutParams) sublayout.getLayoutParams();
+                layoutParams.height = relativeLayout.getHeight();
+                layoutParams.width = relativeLayout.getWidth();
+                sublayout.setLayoutParams(layoutParams);
+            }
             return;
         }
         // Calling this with the present values causes it to re-clam them
@@ -1614,7 +1624,7 @@ public class HVScrollView extends FrameLayout {
 
     /**
      * {@inheritDoc}
-     * <p>
+     * <p/>
      * <p>This version also clamps the scrolling to the bounds of our child.
      */
     @Override

@@ -30,12 +30,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void zoom(View view) {
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.rl);
-        relativeLayout.setLayoutParams(
-                new com.example.cx.parkingmanagementsystem.HVScrollView.LayoutParams((int) (relativeLayout.getWidth() * 0.5),
-                        (int) (relativeLayout.getHeight() * 0.5)));
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

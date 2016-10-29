@@ -1,47 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--<com.example.cx.parkingmanagementsystem.HVScrollView
-    android:layout_height="wrap_content"
+<!--<com.example.cx.parkingmanagementsystem.HVScrollView android:layout_height="wrap_content"
     android:layout_width="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">-->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl"
+
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/background"
     android:orientation="vertical">
 
-    <com.example.cx.parkingmanagementsystem.items.Parkingspace_V
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="221dp"
-        android:layout_marginTop="81dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+    <include
+        android:id="@+id/parkingspaceView"
+        layout="@layout/parkingspace" />
 
-<!--    <com.example.cx.parkingmanagementsystem.items.Parkingspace_V
-        android:id="@+id/view3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/view2"
-        android:layout_toEndOf="@+id/view2" />-->
+    <include
+        android:id="@+id/lightView"
+        layout="@layout/light" />
 
-<!--    <com.example.cx.parkingmanagementsystem.items.Parkingspace_H
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view2"
-        android:layout_marginEnd="7dp" />-->
+    <include
+        android:id="@+id/hrdrantView"
+        layout="@layout/hydrant" />
 
-
-<!--    <com.example.cx.parkingmanagementsystem.items.Light
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/lightbutton"
-        android:layout_marginStart="181dp"
-        android:layout_marginTop="135dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />-->
-
-</RelativeLayout><!--</com.example.cx.parkingmanagementsystem.HVScrollView>-->
+    <include
+        android:id="@+id/cameraView"
+        layout="@layout/camera" />
+</RelativeLayout><!--
+</com.example.cx.parkingmanagementsystem.HVScrollView>-->
