@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/floor_3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background3"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/parkingspaceView"
+        layout="@layout/parkingspace" />
+
+    <include
+        android:id="@+id/lightView"
+        layout="@layout/light" />
+
+    <include
+        android:id="@+id/hydrantView"
+        layout="@layout/hydrant" />
+
+    <include
+        android:id="@+id/cameraView"
+        layout="@layout/camera" />
+</RelativeLayout>
