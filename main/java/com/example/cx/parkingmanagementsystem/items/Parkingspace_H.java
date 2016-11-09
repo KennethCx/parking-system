@@ -35,11 +35,11 @@ public class Parkingspace_H extends item {
         this.HEIGHT = HEIGHT;
     }
 
-    public int getWIDTH(){
+    public int getWIDTH() {
         return this.WIDTH;
     }
 
-    public int getHEIGHT(){
+    public int getHEIGHT() {
         return this.HEIGHT;
     }
 

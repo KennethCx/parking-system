@@ -42,7 +42,7 @@ public class HVScrollView extends FrameLayout {
     private float newDist = 1;
 
     //停车场不同层的背景图
-    int backgrounds[] = {R.drawable.background,R.drawable.background1, R.drawable.background2, R.drawable.background3};
+    int backgrounds[] = {R.drawable.background, R.drawable.background1, R.drawable.background2, R.drawable.background3};
 
     //停车场图片宽高
     private int PicHeight = BitmapFactory.decodeResource(this.getResources(), backgrounds[MainActivity.FLOOR]).getHeight();
@@ -67,7 +67,7 @@ public class HVScrollView extends FrameLayout {
 
 
     //更换fragment的时候初始化相关变量
-    public void init(){
+    public void init() {
         firstTime = true;
         oldDist = 1;
         newDist = 1;
@@ -622,7 +622,7 @@ public class HVScrollView extends FrameLayout {
                         subRelativeLayout1.setLayoutParams(                                        //重新设置布局大小
                                 new RelativeLayout.LayoutParams(
                                         (int) (PicWidth * scale), (int) (PicHeight * scale)));
-                        for(int k = 0;k < subRelativeLayout1.getChildCount();k++) {
+                        for (int k = 0; k < subRelativeLayout1.getChildCount(); k++) {
                             RelativeLayout subRelativeLayout = (RelativeLayout) subRelativeLayout1.getChildAt(k);    //停车场当前层的布局
                             for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {                           //遍历子布局中的控件
                                 View child = subRelativeLayout.getChildAt(j);
@@ -1549,23 +1549,24 @@ public class HVScrollView extends FrameLayout {
         if (firstTime) {
             firstTime = false;
             scrollTo((PicWidth - getWidth()) / 2, (PicHeight - getHeight()) / 2);       //滚动到图片正中间
-
-            //调整子布局大小
-            RelativeLayout relativeLayout1 = (RelativeLayout) getChildAt(0);
-            RelativeLayout relativeLayout = (RelativeLayout) getChildAt(0);
-            if(relativeLayout1.getChildCount() != 0)
-                relativeLayout = (RelativeLayout) relativeLayout1.getChildAt(0);    //停车场当前层的布局
-            RelativeLayout sublayout;
-            RelativeLayout.LayoutParams layoutParams;
-            for (int i = 0; i < relativeLayout.getChildCount(); i++) {
-                sublayout = (RelativeLayout) relativeLayout.getChildAt(i);
-                layoutParams = (RelativeLayout.LayoutParams) sublayout.getLayoutParams();
-                layoutParams.height = relativeLayout.getHeight();
-                layoutParams.width = relativeLayout.getWidth();
-                sublayout.setLayoutParams(layoutParams);
-            }
             return;
         }
+
+        //调整子布局大小
+        RelativeLayout relativeLayout1 = (RelativeLayout) getChildAt(0);
+        RelativeLayout relativeLayout = (RelativeLayout) getChildAt(0);
+        if (relativeLayout1.getChildCount() != 0)
+            relativeLayout = (RelativeLayout) relativeLayout1.getChildAt(0);    //停车场当前层的布局
+        RelativeLayout sublayout;
+        RelativeLayout.LayoutParams layoutParams;
+        for (int i = 0; i < relativeLayout.getChildCount(); i++) {
+            sublayout = (RelativeLayout) relativeLayout.getChildAt(i);
+            layoutParams = (RelativeLayout.LayoutParams) sublayout.getLayoutParams();
+            layoutParams.height = relativeLayout.getHeight() * (int) lastScale;
+            layoutParams.width = relativeLayout.getWidth() * (int) lastScale;
+            sublayout.setLayoutParams(layoutParams);
+        }
+
         // Calling this with the present values causes it to re-clam them
         scrollTo(getScrollX(), getScrollY());
     }

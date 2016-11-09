@@ -39,16 +39,15 @@ public class Parkingspace_V extends item {
         this.HEIGHT = HEIGHT;
     }
 
-    public int getWIDTH(){
+    public int getWIDTH() {
         return this.WIDTH;
     }
 
-    public int getHEIGHT(){
+    public int getHEIGHT() {
         return this.HEIGHT;
     }
 
     public void setBackground() {
-
         if (STATUS == 0) {
             this.setBackgroundResource(R.drawable.parkingspace_empty);
         } else if (STATUS == 1) {

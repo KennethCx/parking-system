@@ -82,4 +82,10 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/fab_show" />
 
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:background="@drawable/setting"
+        android:onClick="setting" />
+
 </android.support.design.widget.CoordinatorLayout>

@@ -2,25 +2,26 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/floor_1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/background1"
     android:orientation="vertical">
 
     <include
         android:id="@+id/parkingspaceView"
-        layout="@layout/parkingspace" />
+        layout="@layout/floor_1_parkingspace" />
 
     <include
         android:id="@+id/lightView"
-        layout="@layout/light" />
-
-    <include
-        android:id="@+id/hydrantView"
-        layout="@layout/hydrant" />
+        layout="@layout/floor_1_light" />
 
     <include
         android:id="@+id/cameraView"
-        layout="@layout/camera" />
+        layout="@layout/floor_1_camera" />
+
+    <include
+        android:id="@+id/hydrantView"
+        layout="@layout/floor_1_hydrant" />
+
 </RelativeLayout>
 

@@ -15,10 +15,10 @@ import java.util.HashMap;
 public class item extends ImageButton {
 
     //ID
-    public int ID;
+    protected int ID;
 
     //0关 1开 -1坏
-    public int STATUS = 0;
+    protected int STATUS = 0;
 
     public item(Context context) {
         super(context, null);
