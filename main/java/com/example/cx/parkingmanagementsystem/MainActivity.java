@@ -27,7 +27,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     //服务器URL
-    public static String url = "http://192.168.191.1";
+    public static String url = "http://192.168.191.1/seconded/searchlight.php";
 
     public static String textt = "";
 
@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity {
         URL.setText(url);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("设置URL").setIcon(android.R.drawable.ic_dialog_info).setView(URL)
-                .setNegativeButton("Cancel", null);
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setNegativeButton("取消", null);
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
                 url = URL.getText().toString();

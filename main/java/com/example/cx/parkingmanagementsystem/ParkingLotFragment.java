@@ -5,11 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -47,7 +49,7 @@ public class ParkingLotFragment extends Fragment {
             Intent intent = new Intent(getActivity(), UpdateService.class);
             // 启动IntentService
             getActivity().startService(intent);
-            handler.postDelayed(this, 5000);
+            handler.postDelayed(this, 100);
         }
     };
 
@@ -73,7 +75,7 @@ public class ParkingLotFragment extends Fragment {
         //初始化组件Onclick事件
         setItemsListener();
 
-        handler.postDelayed(runnable, 500);                                                         //每半秒执行一次runnable.
+        handler.postDelayed(runnable, 100);                                                         //每半秒执行一次runnable.
 
         //注册广播接收器
         IntentFilter filter = new IntentFilter();
@@ -163,7 +165,13 @@ public class ParkingLotFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     parkingspace_v = (Parkingspace_V) view;
-                    Toast.makeText(getActivity(), "i am parkingspace" + parkingspace_v.getID(), Toast.LENGTH_SHORT).show();
+                    View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
+                    final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                    itemDetail.setBackgroundDrawable(new BitmapDrawable());
+                    itemDetail.setDetail(ItemDetail.PARKINGSPACE, parkingspace_v.getID(), parkingspace_v.getSTATUS() + 1);
+                    //设置在控件下出现
+                    itemDetail.showAsDropDown(view);
                 }
             });
         }
@@ -173,7 +181,13 @@ public class ParkingLotFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     parkingspace_h = (Parkingspace_H) view;
-                    Toast.makeText(getActivity(), "i am parkingspace" + parkingspace_h.getID(), Toast.LENGTH_SHORT).show();
+                    View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
+                    final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                    itemDetail.setBackgroundDrawable(new BitmapDrawable());
+                    itemDetail.setDetail(ItemDetail.PARKINGSPACE, parkingspace_h.getID(), parkingspace_h.getSTATUS() + 1);
+                    //设置在控件下出现
+                    itemDetail.showAsDropDown(view);
                 }
             });
         }
@@ -183,7 +197,15 @@ public class ParkingLotFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     light = (Light) view;
-                    Toast.makeText(getActivity(), "i am light" + light.getID(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "i am light" + light.getID(), Toast.LENGTH_SHORT).show();
+
+                    View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
+                    final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                    itemDetail.setBackgroundDrawable(new BitmapDrawable());
+                    itemDetail.setDetail(ItemDetail.LIGHT, light.getID(), light.getSTATUS() + 1);
+                    //设置在控件下出现
+                    itemDetail.showAsDropDown(view);
                 }
             });
         }
@@ -193,7 +215,13 @@ public class ParkingLotFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     camera = (Camera) view;
-                    Toast.makeText(getActivity(), "i am camera" + camera.getID(), Toast.LENGTH_SHORT).show();
+                    View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
+                    final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                    itemDetail.setBackgroundDrawable(new BitmapDrawable());
+                    itemDetail.setDetail(ItemDetail.CAMERA, camera.getID(), camera.getSTATUS() + 1);
+                    //设置在控件下出现
+                    itemDetail.showAsDropDown(view);
                 }
             });
         }
@@ -203,7 +231,13 @@ public class ParkingLotFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     hydrant = (Hydrant) view;
-                    Toast.makeText(getActivity(), "i am hydrant" + hydrant.getID(), Toast.LENGTH_SHORT).show();
+                    View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
+                    final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                    itemDetail.setBackgroundDrawable(new BitmapDrawable());
+                    itemDetail.setDetail(ItemDetail.HYDRANT, hydrant.getID(), hydrant.getSTATUS() + 1);
+                    //设置在控件下出现
+                    itemDetail.showAsDropDown(view);
                 }
             });
         }
@@ -227,7 +261,6 @@ public class ParkingLotFragment extends Fragment {
                                     for (int i = 0; i < lights.size(); i++) {
                                         light = lights.get(i);
                                         if (light.getID() == tmp.getID()) {
-                                            System.out.println("修改灯值");
                                             light.setSTATUS(tmp.getNewStatus());
                                             break;
                                         }

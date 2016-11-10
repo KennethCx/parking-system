@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.cx.parkingmanagementsystem.Internet.getPostUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,22 +25,24 @@ public class UpdateService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        int ID, NewStatus = 1;
+        int NewStatus = 1;
         String Kind = "light";
-        //ID = 1;
-        NewStatus = (int) (Math.random() + 0.5);
-        // System.out.println(NewStatus);
+        //NewStatus = (int) (Math.random() + 0.5);
+        NewStatus = 1;
         List<UpdateList> updateLists = new ArrayList<>();
         String result = "";
+        System.out.println("-----------------");
         for (int i = 1; i <= 2; i++) {
             String PARAMS = "lightID=";
-            // result = getPostUtil.sendGet(MainActivity.url, PARAMS + i);
+            result = getPostUtil.sendGet(MainActivity.url, PARAMS + i);
             try {
-                result = "[{\"ID\":1,\"status\":" + NewStatus + "}]";
+                // result = "[{\"ID\":" + i + ",\"lightstatus\":" + NewStatus + "}]";
+                // System.out.println(NewStatus);
                 JSONArray jay = new JSONArray(result);
                 for (int j = 0; j < jay.length(); j++) {
                     JSONObject tmp = (JSONObject) jay.get(j);
-                    updateLists.add(new UpdateList("light", i, tmp.getInt("status")));
+                    updateLists.add(new UpdateList("light", i, tmp.getInt("lightstatus")));
+                   // System.out.println("ID = " + i + " status = " + tmp.getInt("lightstatus"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
