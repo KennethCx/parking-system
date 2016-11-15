@@ -34,7 +34,7 @@ public class UpdateService extends IntentService {
         System.out.println("-----------------");
         for (int i = 1; i <= 2; i++) {
             String PARAMS = "lightID=";
-            result = getPostUtil.sendGet(MainActivity.url, PARAMS + i);
+            result = getPostUtil.sendGet(MainActivity.url + "/seconded/searchlight.php", PARAMS + i);
             try {
                 // result = "[{\"ID\":" + i + ",\"lightstatus\":" + NewStatus + "}]";
                 // System.out.println(NewStatus);

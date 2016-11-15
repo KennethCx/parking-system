@@ -27,7 +27,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     //服务器URL
-    public static String url = "http://192.168.191.1/seconded/searchlight.php";
+    public static String url = "http://192.168.191.1";
 
     public static String textt = "";
 

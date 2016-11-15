@@ -36,7 +36,7 @@ public class ItemDetail extends PopupWindow {
                     new Thread(){
                         @Override
                         public void run() {
-                            String URL = "http://192.168.191.1/seconded/textturnon.php";
+                            String URL = MainActivity.url + "/seconded/textturnon.php";
                             getPostUtil.sendGet(URL, "lightID=" + ID);
                         }
                     }.start();
@@ -47,7 +47,7 @@ public class ItemDetail extends PopupWindow {
                     new Thread(){
                         @Override
                         public void run() {
-                            String URL = "http://192.168.191.1/seconded/textturnoff.php";
+                            String URL = MainActivity.url + "/seconded/textturnoff.php";
                             getPostUtil.sendGet(URL, "lightID=" + ID);
                         }
                     }.start();
