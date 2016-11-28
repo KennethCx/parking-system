@@ -31,8 +31,8 @@ public class UpdateService extends IntentService {
         NewStatus = 1;
         List<UpdateList> updateLists = new ArrayList<>();
         String result = "";
-        System.out.println("-----------------");
-        for (int i = 1; i <= 2; i++) {
+       // System.out.println("-----------------");
+        for (int i = 1; i <= 11; i++) {
             String PARAMS = "lightID=";
             result = getPostUtil.sendGet(MainActivity.url + "/seconded/searchlight.php", PARAMS + i);
             try {
@@ -43,6 +43,19 @@ public class UpdateService extends IntentService {
                     JSONObject tmp = (JSONObject) jay.get(j);
                     updateLists.add(new UpdateList("light", i, tmp.getInt("lightstatus")));
                    // System.out.println("ID = " + i + " status = " + tmp.getInt("lightstatus"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        for (int i = 1; i <= 2; i++) {
+            String PARAMS = "parkingSpaceID=";
+            result = getPostUtil.sendGet(MainActivity.url + "/seconded/searchlight.php", PARAMS + i);
+            try {
+                JSONArray jay = new JSONArray(result);
+                for (int j = 0; j < jay.length(); j++) {
+                    JSONObject tmp = (JSONObject) jay.get(j);
+                    updateLists.add(new UpdateList("parkingspace", i, tmp.getInt("parkingspacestatus")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

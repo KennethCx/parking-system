@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         hvScrollView = (HVScrollView) findViewById(R.id.HVScrollView);
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setSelection(FLOOR - 1, true);
+        hvScrollView.init();
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

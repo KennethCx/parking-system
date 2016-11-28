@@ -4,21 +4,12 @@
     android:layout_height="match_parent">
 
     <com.example.cx.parkingmanagementsystem.items.Camera
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginStart="194dp"
-    android:layout_marginTop="162dp"
-    android:background="@drawable/camera_off" />
-
-    <com.example.cx.parkingmanagementsystem.items.Camera
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="101dp"
+        android:background="@drawable/camera_off"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="194dp"
-        android:layout_marginTop="190dp"
-        android:background="@drawable/camera_off" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

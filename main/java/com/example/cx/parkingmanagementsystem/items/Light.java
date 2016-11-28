@@ -27,7 +27,7 @@ public class Light extends item {
 
     public void setBackground() {
         if (STATUS == 0) {
-            this.setBackgroundResource(R.drawable.lightbutton);
+            this.setBackgroundResource(R.drawable.light_off);
         } else if (STATUS == 1) {
             this.setBackgroundResource(R.drawable.light_on);
         } else if (STATUS == -1) {
