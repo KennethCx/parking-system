@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".DisplayActivity">
+
+    <!--<android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>-->
+    <com.example.cx.parkingmanagementsystem.widget.HVScrollView
+        android:id="@+id/HVScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--        <include layout="@layout/floor_1" />-->
+        <fragment
+            android:id="@+id/floorView"
+            android:name="com.example.cx.parkingmanagementsystem.ParkingLotFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/floor_1" />
+    </com.example.cx.parkingmanagementsystem.widget.HVScrollView>
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="top|start"
+        android:layout_margin="10dp"
+        android:background="@drawable/back"
+        android:onClick="back"
+        />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_margin="10dp"
+        android:background="#898989"
+        android:entries="@array/floor"
+        android:popupBackground="#1c6dd6" />
+
+    <com.example.cx.parkingmanagementsystem.widget.SwitchButton
+        android:id="@+id/fab_button_hydrant"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="85dp"
+        android:background="@drawable/fab_button_hydrant_on"
+        android:visibility="gone" />
+
+    <com.example.cx.parkingmanagementsystem.widget.SwitchButton
+        android:id="@+id/fab_button_camera"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="58dp"
+        android:layout_marginEnd="75dp"
+        android:background="@drawable/fab_button_camera_on"
+        android:visibility="gone" />
+
+    <com.example.cx.parkingmanagementsystem.widget.SwitchButton
+        android:id="@+id/fab_button_light"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="85dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/fab_button_light_on"
+        android:visibility="gone" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/fab_show" />
+
+</android.support.design.widget.CoordinatorLayout>

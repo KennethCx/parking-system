@@ -22,4 +22,7 @@
         android:id="@+id/hydrantView"
         layout="@layout/floor_2_hydrant" />
 
+    <include
+        android:id="@+id/floorlightView"
+        layout="@layout/floor_2_floorlight" />
 </RelativeLayout>

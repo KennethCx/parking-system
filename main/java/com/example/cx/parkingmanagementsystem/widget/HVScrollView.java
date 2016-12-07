@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
-import com.example.cx.parkingmanagementsystem.MainActivity;
+import com.example.cx.parkingmanagementsystem.DisplayActivity;
 import com.example.cx.parkingmanagementsystem.R;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_H;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_V;
@@ -42,11 +42,11 @@ public class HVScrollView extends FrameLayout {
     private float newDist = 1;
 
     //停车场不同层的背景图
-    int backgrounds[] = {R.drawable.background, R.drawable.background1, R.drawable.background2, R.drawable.background3};
+    private int backgrounds[] = {R.drawable.background, R.drawable.background1, R.drawable.background2, R.drawable.background3};
 
     //停车场图片宽高
-    private int PicHeight = BitmapFactory.decodeResource(this.getResources(), backgrounds[MainActivity.FLOOR]).getHeight();
-    private int PicWidth = BitmapFactory.decodeResource(this.getResources(), backgrounds[MainActivity.FLOOR]).getWidth();
+    private int PicHeight = BitmapFactory.decodeResource(this.getResources(), backgrounds[DisplayActivity.FLOOR]).getHeight();
+    private int PicWidth = BitmapFactory.decodeResource(this.getResources(), backgrounds[DisplayActivity.FLOOR]).getWidth();
 
     //最后一次的缩放比例
     private float lastScale = 1;
@@ -72,8 +72,8 @@ public class HVScrollView extends FrameLayout {
         oldDist = 1;
         newDist = 1;
         lastScale = 1;
-        PicHeight = BitmapFactory.decodeResource(this.getResources(), backgrounds[MainActivity.FLOOR]).getHeight();
-        PicWidth = BitmapFactory.decodeResource(this.getResources(), backgrounds[MainActivity.FLOOR]).getWidth();
+        PicHeight = BitmapFactory.decodeResource(this.getResources(), backgrounds[DisplayActivity.FLOOR]).getHeight();
+        PicWidth = BitmapFactory.decodeResource(this.getResources(), backgrounds[DisplayActivity.FLOOR]).getWidth();
     }
 
 

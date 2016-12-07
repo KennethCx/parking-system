@@ -5,17 +5,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.FloatProperty;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.cx.parkingmanagementsystem.items.Camera;
+import com.example.cx.parkingmanagementsystem.items.FloorLight;
 import com.example.cx.parkingmanagementsystem.items.Hydrant;
 import com.example.cx.parkingmanagementsystem.items.Light;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_H;
@@ -33,13 +34,15 @@ public class ParkingLotFragment extends Fragment {
     private List<Light> lights = new ArrayList<>();
     private List<Camera> cameras = new ArrayList<>();
     private List<Hydrant> hydrants = new ArrayList<>();
+    private List<FloorLight> floorLights = new ArrayList<>();
     private Parkingspace_H parkingspace_h;
     private Parkingspace_V parkingspace_v;
     private Light light;
     private Camera camera;
     private Hydrant hydrant;
-
-    MyReceiver receiver = new MyReceiver();
+    private FloorLight floorLight;
+    private int type = 0;
+    UpdateListReceiver receiver = new UpdateListReceiver();
 
     Handler handler = new Handler();
     Runnable runnable = new Runnable() {
@@ -61,13 +64,15 @@ public class ParkingLotFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View rootView = inflater.inflate(R.layout.floor, container, false);
-        if (MainActivity.FLOOR == 1)
-            rootView = inflater.inflate(R.layout.floor_1, container, false);
-        else if (MainActivity.FLOOR == 2)
-            rootView = inflater.inflate(R.layout.floor_2, container, false);
-        else if (MainActivity.FLOOR == 3)
-            rootView = inflater.inflate(R.layout.floor_3, container, false);
-        else {
+        Bundle bundle = getArguments();
+        int layout = 0;
+        if (bundle != null) {
+            layout = bundle.getInt("layout");
+            type = bundle.getInt("type");
+        }
+        if (layout != 0) {
+            rootView = inflater.inflate(layout, container, false);
+        } else {
             return rootView;                                                                        //如果是最底层的fragment则直接返回
         }
         //初始化组件ID
@@ -75,12 +80,14 @@ public class ParkingLotFragment extends Fragment {
         //初始化组件Onclick事件
         setItemsListener();
 
-        handler.postDelayed(runnable, 100);                                                         //每半秒执行一次runnable.
+        handler.postDelayed(runnable, 100);                                                         //每0.1秒执行一次runnable.
 
         //注册广播接收器
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.cx.parkingmanagementsystem.UpdateService");
         getActivity().registerReceiver(receiver, filter);
+
+
         return rootView;
     }
 
@@ -102,10 +109,19 @@ public class ParkingLotFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         handler.removeCallbacks(runnable);                                                          //取消定时发送给handle
-        getActivity().unregisterReceiver(receiver);                                                 //注销广播接收器
+        try {
+            getActivity().unregisterReceiver(receiver);                                                 //注销广播接收器
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().contains("Receiver not registered")) {
+                // Ignore this exception. This is exactly what is desired
+            } else {
+                // unexpected, re-throw
+                throw e;
+            }
+        }
     }
 
     //初始化控件的ID号
@@ -116,7 +132,7 @@ public class ParkingLotFragment extends Fragment {
             subRelativeLayout = (RelativeLayout) relativeLayout.getChildAt(i);                      //遍历每层停车场中的4种控件
 
             //初始化停车位
-            if (i == 0) {
+            if ((i == 0 && type == 4) || (type == 1 && i == 0)) {
                 for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
                     View view = subRelativeLayout.getChildAt(j);
                     if (view instanceof Parkingspace_H) {
@@ -131,7 +147,7 @@ public class ParkingLotFragment extends Fragment {
                 }
             }
             //初始化灯
-            else if (i == 1) {
+            else if ((i == 1 && type == 4) || (type == 0)) {
                 for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
                     light = (Light) subRelativeLayout.getChildAt(j);
                     light.setID(j + 1);
@@ -139,7 +155,7 @@ public class ParkingLotFragment extends Fragment {
                 }
             }
             //初始化摄像头
-            else if (i == 2) {
+            else if ((i == 2 && type == 4) || (type == 3)) {
                 for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
                     camera = (Camera) subRelativeLayout.getChildAt(j);
                     camera.setID(j + 1);
@@ -147,11 +163,19 @@ public class ParkingLotFragment extends Fragment {
                 }
             }
             //初始化消防栓
-            else if (i == 3) {
+            else if ((i == 3 && type == 4) || (type == 2)) {
                 for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
                     hydrant = (Hydrant) subRelativeLayout.getChildAt(j);
                     hydrant.setID(j + 1);
                     hydrants.add(hydrant);
+                }
+            }
+            //初始化地灯
+            else if ((i == 4 && type == 4) || (type == 1 && i == 1)) {
+                for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
+                    floorLight = (FloorLight) subRelativeLayout.getChildAt(j);
+                    floorLight.setID(j + 1);
+                    floorLights.add(floorLight);
                 }
             }
         }
@@ -241,6 +265,22 @@ public class ParkingLotFragment extends Fragment {
                 }
             });
         }
+        for (int i = 0; i < floorLights.size(); i++) {
+            floorLight = floorLights.get(i);
+            floorLight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    floorLight = (FloorLight) view;
+                    View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
+                    final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                    itemDetail.setBackgroundDrawable(new BitmapDrawable());
+                    itemDetail.setDetail(ItemDetail.HYDRANT, hydrant.getID(), hydrant.getSTATUS() + 1);
+                    //设置在控件下出现
+                    itemDetail.showAsDropDown(view);
+                }
+            });
+        }
     }
 
     //更新控件的实时状态
@@ -256,6 +296,7 @@ public class ParkingLotFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             if (tmp.getItemKind().equals("light")) {
                                 if (!lights.isEmpty()) {
                                     for (int i = 0; i < lights.size(); i++) {
@@ -282,6 +323,16 @@ public class ParkingLotFragment extends Fragment {
                                         hydrant = hydrants.get(i);
                                         if (hydrant.getID() == tmp.getID()) {
                                             hydrant.setSTATUS(tmp.getNewStatus());
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else if (tmp.getItemKind().equals("floorLight")) {
+                                if (!floorLights.isEmpty()) {
+                                    for (int i = 0; i < floorLights.size(); i++) {
+                                        floorLight = floorLights.get(i);
+                                        if (floorLight.getID() == tmp.getID()) {
+                                            floorLight.setSTATUS(tmp.getNewStatus());
                                             break;
                                         }
                                     }
@@ -313,7 +364,7 @@ public class ParkingLotFragment extends Fragment {
         }
     }
 
-    public class MyReceiver extends BroadcastReceiver {
+    public class UpdateListReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             Bundle bundle = intent.getExtras();

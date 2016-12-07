@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="194dp"
         android:layout_marginTop="162dp"
-        android:background="@drawable/camera_off" />
+        android:background="@drawable/camera_break" />
 
     <com.example.cx.parkingmanagementsystem.items.Camera
         android:layout_width="wrap_content"
@@ -19,6 +19,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="194dp"
         android:layout_marginTop="190dp"
-        android:background="@drawable/camera_off" />
+        android:background="@drawable/camera_break" />
 
 </RelativeLayout>

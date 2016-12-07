@@ -18,7 +18,7 @@ public class item extends ImageButton {
     protected int ID;
 
     //0关 1开 -1坏
-    protected int STATUS = 0;
+    protected int STATUS = -1;
 
     public item(Context context) {
         super(context, null);

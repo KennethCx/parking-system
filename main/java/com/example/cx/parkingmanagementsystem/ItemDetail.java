@@ -1,6 +1,5 @@
 package com.example.cx.parkingmanagementsystem;
 
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.Switch;
@@ -16,10 +15,13 @@ public class ItemDetail extends PopupWindow {
     public static final int LIGHT = 1;
     public static final int CAMERA = 2;
     public static final int HYDRANT = 3;
-    private final String[][] statusContent = {{"不可用", "空闲", "占用"},
-                                              {"损坏", "关闭", "开启"},
-                                              {"损坏", "关闭", "开启"},
-                                              {"损坏", "正常", "开启"}};
+    public static final int FLOORLIGHT = 4;
+    private final String[][] statusContent = {
+            {"不可用", "空闲", "占用"},
+            {"损坏", "关闭", "开启"},
+            {"损坏", "关闭", "开启"},
+            {"损坏", "正常", "开启"},
+            {"损坏", "关闭", "开启"}};
 
     private int type;
     private int ID;
@@ -33,22 +35,27 @@ public class ItemDetail extends PopupWindow {
                 if (switch1.isChecked()) {                                                          //开灯
                     TextView detailSTATUE = (TextView) getContentView().findViewById(R.id.STATUS);
                     detailSTATUE.setText(statusContent[type][2]);
-                    new Thread(){
+                    new Thread() {
                         @Override
                         public void run() {
-                            String URL = MainActivity.url + "/seconded/textturnon.php";
-                            getPostUtil.sendGet(URL, "lightID=" + ID);
+                            if (type == LIGHT) {
+                                System.out.println("!!!@@!");
+                                String URL = MainActivity.url + "/seconded/android/lightturnon.php";
+                                getPostUtil.sendGet(URL, "lightID=" + ID);
+                            }
                         }
                     }.start();
 
                 } else {                                                                            //关灯
                     TextView detailSTATUE = (TextView) getContentView().findViewById(R.id.STATUS);
                     detailSTATUE.setText(statusContent[type][1]);
-                    new Thread(){
+                    new Thread() {
                         @Override
                         public void run() {
-                            String URL = MainActivity.url + "/seconded/textturnoff.php";
-                            getPostUtil.sendGet(URL, "lightID=" + ID);
+                            if (type == LIGHT) {
+                                String URL = MainActivity.url + "/seconded/android/lightturnoff.php";
+                                getPostUtil.sendGet(URL, "lightID=" + ID);
+                            }
                         }
                     }.start();
                 }

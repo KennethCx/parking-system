@@ -33,15 +33,19 @@ public class UpdateService extends IntentService {
         String result = "";
        // System.out.println("-----------------");
         for (int i = 1; i <= 11; i++) {
-            String PARAMS = "lightID=";
-            result = getPostUtil.sendGet(MainActivity.url + "/seconded/searchlight.php", PARAMS + i);
+            //String PARAMS = "lightID=";
+            //result = getPostUtil.sendGet(MainActivity.url + "/seconded/android/searchlight.php", PARAMS + i);
+            String PARAMS = "";
+            result = getPostUtil.sendGet(MainActivity.url + "/seconded/android/searchlight.php", PARAMS);
             try {
-                // result = "[{\"ID\":" + i + ",\"lightstatus\":" + NewStatus + "}]";
+                 //result = "[\"1\":{\"ID\":" + i + ",\"lightstatus\":" + NewStatus + "},\"2\":{\"ID\":\" + i + \",\\\"lightstatus\\\":\" + NewStatus + \"}]";
+                //result = "[1:{ID:1,lightstatus:1},2:{ID:2,lightstatus:0}]";
                 // System.out.println(NewStatus);
                 JSONArray jay = new JSONArray(result);
                 for (int j = 0; j < jay.length(); j++) {
                     JSONObject tmp = (JSONObject) jay.get(j);
-                    updateLists.add(new UpdateList("light", i, tmp.getInt("lightstatus")));
+                    //updateLists.add(new UpdateList("light", i, tmp.getInt("lightstatus")));
+                    updateLists.add(new UpdateList("light", j, tmp.getInt("lightstatus")));
                    // System.out.println("ID = " + i + " status = " + tmp.getInt("lightstatus"));
                 }
             } catch (JSONException e) {
@@ -49,13 +53,13 @@ public class UpdateService extends IntentService {
             }
         }
         for (int i = 1; i <= 2; i++) {
-            String PARAMS = "parkingSpaceID=";
-            result = getPostUtil.sendGet(MainActivity.url + "/seconded/searchlight.php", PARAMS + i);
+            String PARAMS = "carportnum=";
+            result = getPostUtil.sendGet(MainActivity.url + "/seconded/android/searchcarport.php", PARAMS + i);
             try {
                 JSONArray jay = new JSONArray(result);
                 for (int j = 0; j < jay.length(); j++) {
                     JSONObject tmp = (JSONObject) jay.get(j);
-                    updateLists.add(new UpdateList("parkingspace", i, tmp.getInt("parkingspacestatus")));
+                    updateLists.add(new UpdateList("parkingspace", i, tmp.getInt("carportstatus")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
         android:layout_marginTop="119dp"
-        android:background="@drawable/hydrant_normal"
+        android:background="@drawable/hydrant_break"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 

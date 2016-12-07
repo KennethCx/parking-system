@@ -6,99 +6,10 @@
     <com.example.cx.parkingmanagementsystem.items.Light
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_marginStart="151dp"
+        android:layout_marginTop="113dp"
+        android:background="@drawable/light_break"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="413dp"
-        android:layout_marginTop="260dp"
-        android:background="@drawable/lightbutton" />
+        android:layout_alignParentStart="true" />
 
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="413dp"
-        android:layout_marginTop="205dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="413dp"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="313dp"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="313dp"
-        android:layout_marginTop="205dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="313dp"
-        android:layout_marginTop="260dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="209dp"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="209dp"
-        android:layout_marginTop="205dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="209dp"
-        android:layout_marginTop="260dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="357dp"
-        android:layout_marginTop="205dp"
-        android:background="@drawable/lightbutton" />
-
-    <com.example.cx.parkingmanagementsystem.items.Light
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="205dp"
-        android:background="@drawable/lightbutton" />
 </RelativeLayout>
