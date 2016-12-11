@@ -1,19 +1,19 @@
 package com.example.cx.parkingmanagementsystem;
 
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
+import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Range;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+
 
 import com.example.cx.parkingmanagementsystem.widget.HVScrollView;
 import com.example.cx.parkingmanagementsystem.widget.SwitchButton;
@@ -190,7 +190,7 @@ public class DisplayActivity extends AppCompatActivity {
     }
 
     public void back(View view) {
-        Intent intent = new Intent(DisplayActivity.this,MainActivity.class);
+        Intent intent = new Intent(DisplayActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -216,5 +216,4 @@ public class DisplayActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }*/
-
 }

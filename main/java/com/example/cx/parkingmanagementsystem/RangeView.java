@@ -4,29 +4,90 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
+
+import com.example.cx.parkingmanagementsystem.items.Camera;
+import com.example.cx.parkingmanagementsystem.items.Light;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Cx on 2016/12/07.
  */
 public class RangeView extends View {
+    private List<Camera> cameras = new ArrayList<>();
+    private List<Light> lights = new ArrayList<>();
+    private Camera camera;
+    private Light light;
+    private float scale = 1;
+
     public RangeView(Context context) {
         super(context);
     }
+
+    public RangeView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public RangeView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        /*
-         * 方法 说明 drawRect 绘制矩形 drawCircle 绘制圆形 drawOval 绘制椭圆 drawPath 绘制任意多边形
-         * drawLine 绘制直线 drawPoin 绘制点
-         */
-        // 创建画笔
-        Paint p = new Paint();
-        p.setColor(Color.RED);// 设置红色
 
-        canvas.drawText("画圆：", 10, 20, p);// 画文本
-        canvas.drawCircle(60, 20, 10, p);// 小圆
-        p.setAntiAlias(true);// 设置画笔的锯齿效果。 true是去除，大家一看效果就明白了
-        canvas.drawCircle(120, 20, 20, p);// 大圆
+        System.out.println("onDraw");
+        initList();
+        if (!lights.isEmpty()) {
+            for (int i = 0; i < lights.size(); i++) {
+                light = lights.get(i);
+                Paint paint = new Paint();
+                paint.setColor(Color.argb(50, 50, 50, 50));
+                //System.out.println(light.getCentreX() + "  " + light.getCentreY());
+                canvas.drawCircle(light.getCentreX(), light.getCentreY(), light.getLightRange() * scale, paint);
+            }
+        }
+
+        if (!cameras.isEmpty()) {
+
+        }
     }
+
+    /*
+    *设置照明灯和摄像头列表
+     */
+    public void setList(List<Light> lights, List<Camera> cameras) {
+        this.lights = lights;
+        this.cameras = cameras;
+    }
+
+    /*
+    *初始化列表中灯或摄像头的中心位置
+     */
+    public void initList() {
+        for (int i = 0; i < lights.size(); i++) {
+            light = lights.get(i);
+            light.setCentreX((int) (light.getWidth() / 2.0 + light.getX()));
+            light.setCentreY((int) (light.getHeight() / 2.0 + light.getY()));
+            //light.setLightRange(light.getLightRange());
+        }
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    public void test() {
+        System.out.println("test succeed!");
+    }
+
+   /* @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        System.out.println("touch");
+        return false;
+    }*/
 }

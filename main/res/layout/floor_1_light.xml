@@ -6,10 +6,17 @@
     <com.example.cx.parkingmanagementsystem.items.Light
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
+        android:layout_marginStart="351dp"
         android:layout_marginTop="113dp"
         android:background="@drawable/light_break"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-
+    <com.example.cx.parkingmanagementsystem.items.Light
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="151dp"
+        android:layout_marginTop="213dp"
+        android:background="@drawable/light_break"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

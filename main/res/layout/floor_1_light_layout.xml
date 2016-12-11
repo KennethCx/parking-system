@@ -7,6 +7,16 @@
     android:background="@drawable/background1"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.cx.parkingmanagementsystem.RangeView
+            android:id="@+id/rangeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
     <include
         android:id="@+id/lightView"
         layout="@layout/floor_1_light" />

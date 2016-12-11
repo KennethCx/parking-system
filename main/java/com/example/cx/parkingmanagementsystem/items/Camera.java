@@ -10,6 +10,12 @@ import com.example.cx.parkingmanagementsystem.R;
  */
 public class Camera extends item {
 
+    private float cameraRange = 1;
+    private float cameraAngle = 0;
+
+    private int centreX = 0;
+    private int centreY = 0;
+
     public Camera(Context context) {
         super(context, null);
     }
@@ -36,5 +42,37 @@ public class Camera extends item {
     public void setSTATUS(int status) {
         super.setSTATUS(status);
         setBackground();
+    }
+
+    public void setCameraRange(float cameraRange) {
+        this.cameraRange = cameraRange;
+    }
+
+    public void setCameraAngle(float cameraAngle) {
+        this.cameraAngle = cameraAngle;
+    }
+
+    public float getCameraRange() {
+        return cameraRange;
+    }
+
+    public float getCameraAngle() {
+        return cameraAngle;
+    }
+
+    public void setCentreX(int centreX) {
+        this.centreX = centreX;
+    }
+
+    public void setCentreY(int centreY) {
+        this.centreY = centreY;
+    }
+
+    public int getCentreX() {
+        return centreX;
+    }
+
+    public int getCentreY() {
+        return centreY;
     }
 }

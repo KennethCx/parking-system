@@ -1,7 +1,9 @@
 package com.example.cx.parkingmanagementsystem.widget;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.FocusFinder;
@@ -18,7 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
 import com.example.cx.parkingmanagementsystem.DisplayActivity;
+import com.example.cx.parkingmanagementsystem.ParkingLotFragment;
 import com.example.cx.parkingmanagementsystem.R;
+import com.example.cx.parkingmanagementsystem.RangeView;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_H;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_V;
 
@@ -622,6 +626,7 @@ public class HVScrollView extends FrameLayout {
                         subRelativeLayout1.setLayoutParams(                                        //重新设置布局大小
                                 new RelativeLayout.LayoutParams(
                                         (int) (PicWidth * scale), (int) (PicHeight * scale)));
+
                         for (int k = 0; k < subRelativeLayout1.getChildCount(); k++) {
                             RelativeLayout subRelativeLayout = (RelativeLayout) subRelativeLayout1.getChildAt(k);    //停车场当前层的布局
                             for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {                           //遍历子布局中的控件
@@ -640,6 +645,8 @@ public class HVScrollView extends FrameLayout {
                                     layoutParams.height = (int) (ps.getHEIGHT() * scale);
                                     layoutParams.width = (int) (ps.getWIDTH() * scale);
                                     ps.setLayoutParams(layoutParams);
+                                } else if (child instanceof RangeView) {
+                                    ((RangeView) child).setScale(scale);
                                 }
                                 //设置缩放视图后的控件的坐标
                                 child.setX(X * scale);
@@ -1549,7 +1556,6 @@ public class HVScrollView extends FrameLayout {
         if (firstTime) {
             firstTime = false;
             scrollTo((PicWidth - getWidth()) / 2, (PicHeight - getHeight()) / 2);       //滚动到图片正中间
-            return;
         }
 
         //调整子布局大小

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
     //服务器URL
     public static String url = "http://192.168.191.1";
 
@@ -95,5 +95,4 @@ public class MainActivity extends Activity {
         });
         builder.show();
     }
-
 }

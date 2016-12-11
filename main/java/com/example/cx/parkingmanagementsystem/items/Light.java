@@ -12,6 +12,11 @@ import com.example.cx.parkingmanagementsystem.R;
  */
 public class Light extends item {
 
+    private float lightRange = 300;
+
+    private int centreX = 0;
+    private int centreY = 0;
+
     public Light(Context context) {
         super(context, null);
     }
@@ -38,5 +43,29 @@ public class Light extends item {
     public void setSTATUS(int status) {
         super.setSTATUS(status);
         setBackground();
+    }
+
+    public void setLightRange(float lightRange) {
+        this.lightRange = lightRange;
+    }
+
+    public float getLightRange() {
+        return lightRange;
+    }
+
+    public void setCentreX(int centreX) {
+        this.centreX = centreX;
+    }
+
+    public void setCentreY(int centreY) {
+        this.centreY = centreY;
+    }
+
+    public int getCentreX() {
+        return centreX;
+    }
+
+    public int getCentreY() {
+        return centreY;
     }
 }
