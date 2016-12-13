@@ -16,6 +16,8 @@ import android.widget.Spinner;
 
 
 import com.example.cx.parkingmanagementsystem.widget.HVScrollView;
+import com.example.cx.parkingmanagementsystem.widget.RangeView_Camera;
+import com.example.cx.parkingmanagementsystem.widget.RangeView_Light;
 import com.example.cx.parkingmanagementsystem.widget.SwitchButton;
 
 
@@ -123,11 +125,15 @@ public class DisplayActivity extends AppCompatActivity {
                     if (lightButton.getChecked()) {
                         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.lightView);
                         relativeLayout.setVisibility(View.GONE);
+                        RangeView_Light rangeView_light = (RangeView_Light) findViewById(R.id.rangeView_Light);
+                        rangeView_light.setVisibility(View.GONE);
                         lightButton.setBackgroundResource(R.drawable.fab_button_light);
                         lightButton.setChecked(false);
                     } else {
                         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.lightView);
                         relativeLayout.setVisibility(View.VISIBLE);
+                        RangeView_Light rangeView_light = (RangeView_Light) findViewById(R.id.rangeView_Light);
+                        rangeView_light.setVisibility(View.VISIBLE);
                         lightButton.setBackgroundResource(R.drawable.fab_button_light_on);
                         lightButton.setChecked(true);
                     }
@@ -139,11 +145,15 @@ public class DisplayActivity extends AppCompatActivity {
                     if (cameraButton.getChecked()) {
                         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.cameraView);
                         relativeLayout.setVisibility(View.GONE);
+                        RangeView_Camera rangeView_camera = (RangeView_Camera) findViewById(R.id.rangeView_Camera);
+                        rangeView_camera.setVisibility(View.GONE);
                         cameraButton.setBackgroundResource(R.drawable.fab_button_camera);
                         cameraButton.setChecked(false);
                     } else {
                         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.cameraView);
                         relativeLayout.setVisibility(View.VISIBLE);
+                        RangeView_Camera rangeView_camera = (RangeView_Camera) findViewById(R.id.rangeView_Camera);
+                        rangeView_camera.setVisibility(View.VISIBLE);
                         cameraButton.setBackgroundResource(R.drawable.fab_button_camera_on);
                         cameraButton.setChecked(true);
                     }

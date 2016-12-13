@@ -7,6 +7,15 @@
     android:background="@drawable/background1"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.cx.parkingmanagementsystem.widget.RangeView_Camera
+            android:id="@+id/rangeView_Camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <include
         android:id="@+id/cameraView"
         layout="@layout/floor_1_camera" />

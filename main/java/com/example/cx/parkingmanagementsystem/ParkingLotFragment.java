@@ -5,16 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.FloatProperty;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.example.cx.parkingmanagementsystem.items.Camera;
@@ -23,6 +19,8 @@ import com.example.cx.parkingmanagementsystem.items.Hydrant;
 import com.example.cx.parkingmanagementsystem.items.Light;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_H;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_V;
+import com.example.cx.parkingmanagementsystem.widget.RangeView_Camera;
+import com.example.cx.parkingmanagementsystem.widget.RangeView_Light;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,8 @@ public class ParkingLotFragment extends Fragment {
     private int type = 0;
     UpdateListReceiver receiver = new UpdateListReceiver();
 
-    RangeView rangeView;
+    RangeView_Light rangeViewLight;
+    RangeView_Camera rangeViewCamera;
 
     Handler handler = new Handler();
     Runnable runnable = new Runnable() {
@@ -97,23 +96,23 @@ public class ParkingLotFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        List<UpdateList> updateLists = new ArrayList<>();
-        updateLists.add(new UpdateList("light", 1, -1));
+        /*List<UpdateList> updateLists = new ArrayList<>();
+        updateLists.add(new UpdateList("light", 1, 1));
         updateLists.add(new UpdateList("light", 2, 0));
-        updateLists.add(new UpdateList("light", 3, 1));
-        updateLists.add(new UpdateList("floorLight", 1, -1));
+        updateLists.add(new UpdateList("light", 3, -1));
+        updateLists.add(new UpdateList("floorLight", 1, 1));
         updateLists.add(new UpdateList("floorLight", 2, 0));
-        updateLists.add(new UpdateList("floorLight", 3, 1));
-        updateLists.add(new UpdateList("camera", 1, -1));
+        updateLists.add(new UpdateList("floorLight", 3, -1));
+        updateLists.add(new UpdateList("camera", 1, 1));
         updateLists.add(new UpdateList("camera", 2, 0));
-        updateLists.add(new UpdateList("camera", 3, 1));
-        updateLists.add(new UpdateList("hydrant", 1, -1));
+        updateLists.add(new UpdateList("camera", 3, -1));
+        updateLists.add(new UpdateList("hydrant", 1, 1));
         updateLists.add(new UpdateList("hydrant", 2, 0));
-        updateLists.add(new UpdateList("hydrant", 3, 1));
-        updateLists.add(new UpdateList("parkingspace", 1, -1));
+        updateLists.add(new UpdateList("hydrant", 3, -1));
+        updateLists.add(new UpdateList("parkingspace", 1, 1));
         updateLists.add(new UpdateList("parkingspace", 2, 0));
-        updateLists.add(new UpdateList("parkingspace", 3, 1));
-        changeItemsStatus(updateLists);
+        updateLists.add(new UpdateList("parkingspace", 3,-1));
+        changeItemsStatus(updateLists);*/
     }
 
     @Override
@@ -135,10 +134,10 @@ public class ParkingLotFragment extends Fragment {
     public void initItemsID(View rootView) {
         RelativeLayout relativeLayout = (RelativeLayout) rootView;
         RelativeLayout subRelativeLayout;
-        for (int i = 1; i < relativeLayout.getChildCount(); i++) {
+        for (int i = 0; i < relativeLayout.getChildCount(); i++) {
             subRelativeLayout = (RelativeLayout) relativeLayout.getChildAt(i);                      //遍历每层停车场中的4种控件
             //初始化停车位
-            if ((i == 1 && type == 4) || (type == 1 && i == 1)) {
+            if ((i == 1 && type == 4) || (type == 1 && i == 0)) {
                 for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
                     View view = subRelativeLayout.getChildAt(j);
                     if (view instanceof Parkingspace_H) {
@@ -153,7 +152,7 @@ public class ParkingLotFragment extends Fragment {
                 }
             }
             //初始化灯
-            else if ((i == 2 && type == 4) || (type == 0)) {
+            else if ((i == 2 && type == 4) || (type == 0 && i == 1)) {
                 for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
                     light = (Light) subRelativeLayout.getChildAt(j);
                     light.setID(j + 1);
@@ -164,7 +163,7 @@ public class ParkingLotFragment extends Fragment {
                 }
             }
             //初始化摄像头
-            else if ((i == 3 && type == 4) || (type == 3)) {
+            else if ((i == 3 && type == 4) || (type == 3 && i == 1)) {
                 for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
                     camera = (Camera) subRelativeLayout.getChildAt(j);
                     camera.setID(j + 1);
@@ -180,7 +179,7 @@ public class ParkingLotFragment extends Fragment {
                 }
             }
             //初始化地灯
-            else if ((i == 5 && type == 4) || (type == 1 && i == 2)) {
+            else if ((i == 5 && type == 4) || (type == 1 && i == 1)) {
                 for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {
                     floorLight = (FloorLight) subRelativeLayout.getChildAt(j);
                     floorLight.setID(j + 1);
@@ -295,7 +294,6 @@ public class ParkingLotFragment extends Fragment {
     //更新控件的实时状态
     public void changeItemsStatus(List<UpdateList> updateList) {
         final int random = (int) (Math.random() * 100);
-        System.out.println("key = " + random + " step = 1");
         for (int i = 0; i < updateList.size(); i++) {
             final UpdateList tmp = updateList.get(i);
             new Thread() {
@@ -312,10 +310,8 @@ public class ParkingLotFragment extends Fragment {
                                     for (int i = 0; i < lights.size(); i++) {
                                         light = lights.get(i);
                                         if (light.getID() == tmp.getID()) {
-                                            System.out.println("key = " + random + " step = 2");
-                                            System.out.println("lightsss = " + tmp.getNewStatus());
                                             light.setSTATUS(tmp.getNewStatus());
-                                            updateRangeView();
+                                            updateRangeView_Light();
                                             break;
                                         }
                                     }
@@ -326,7 +322,7 @@ public class ParkingLotFragment extends Fragment {
                                         camera = cameras.get(i);
                                         if (camera.getID() == tmp.getID()) {
                                             camera.setSTATUS(tmp.getNewStatus());
-                                            updateRangeView();
+                                            updateRangeView_Camera();
                                             break;
                                         }
                                     }
@@ -379,14 +375,24 @@ public class ParkingLotFragment extends Fragment {
 
     }
 
-    public void updateRangeView(){
+    public void updateRangeView_Light(){
         //传送lights和cameras给rangeView
-        rangeView = (RangeView) getActivity().findViewById(R.id.rangeView);
-        if (rangeView == null) {                                //activity未创建完成
+        rangeViewLight = (RangeView_Light) getActivity().findViewById(R.id.rangeView_Light);
+        if (rangeViewLight == null) {                                //activity未创建完成
             return;
         }
-        rangeView.setList(lights, cameras);
-        rangeView.invalidate();
+        rangeViewLight.setList(lights);
+        rangeViewLight.invalidate();
+    }
+
+    public void updateRangeView_Camera(){
+        //传送lights和cameras给rangeView
+        rangeViewCamera = (RangeView_Camera) getActivity().findViewById(R.id.rangeView_Camera);
+        if (rangeViewCamera == null) {                                //activity未创建完成
+            return;
+        }
+        rangeViewCamera.setList(cameras);
+        rangeViewCamera.invalidate();
     }
 
     public class UpdateListReceiver extends BroadcastReceiver {

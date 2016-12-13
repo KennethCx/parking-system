@@ -6,13 +6,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/background1"
     android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.cx.parkingmanagementsystem.RangeView
-            android:id="@+id/rangeView"
+        <com.example.cx.parkingmanagementsystem.widget.RangeView_Light
+            android:id="@+id/rangeView_Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.example.cx.parkingmanagementsystem.widget.RangeView_Camera
+            android:id="@+id/rangeView_Camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

@@ -1,9 +1,7 @@
 package com.example.cx.parkingmanagementsystem.widget;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.FocusFinder;
@@ -20,10 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
 import com.example.cx.parkingmanagementsystem.DisplayActivity;
-import com.example.cx.parkingmanagementsystem.ParkingLotFragment;
 import com.example.cx.parkingmanagementsystem.R;
-import com.example.cx.parkingmanagementsystem.RangeView;
-import com.example.cx.parkingmanagementsystem.items.Light;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_H;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_V;
 
@@ -658,8 +653,12 @@ public class HVScrollView extends FrameLayout {
                                     child.setX(X * scale);
                                     child.setY(Y * scale);
                                     continue;
-                                } else if (child instanceof RangeView) {
-                                    ((RangeView) child).setScale(scale);
+                                } else if (child instanceof RangeView_Light) {
+                                    ((RangeView_Light) child).setScale(scale);
+                                    continue;
+                                }
+                                else if (child instanceof RangeView_Camera) {
+                                    ((RangeView_Camera) child).setScale(scale);
                                     continue;
                                 }
                                 //设置缩放视图后的控件的坐标(按控件中心设置)
