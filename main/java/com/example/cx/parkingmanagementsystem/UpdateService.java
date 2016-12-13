@@ -31,14 +31,14 @@ public class UpdateService extends IntentService {
         NewStatus = 1;
         List<UpdateList> updateLists = new ArrayList<>();
         String result = "";
-       // System.out.println("-----------------");
-        for (int i = 1; i <= 11; i++) {
+        // System.out.println("-----------------");
+       /* for (int i = 1; i <= 11; i++) {
             //String PARAMS = "lightID=";
             //result = getPostUtil.sendGet(MainActivity.url + "/seconded/android/searchlight.php", PARAMS + i);
             String PARAMS = "";
             result = getPostUtil.sendGet(MainActivity.url + "/seconded/android/searchlight.php", PARAMS);
             try {
-                 //result = "[\"1\":{\"ID\":" + i + ",\"lightstatus\":" + NewStatus + "},\"2\":{\"ID\":\" + i + \",\\\"lightstatus\\\":\" + NewStatus + \"}]";
+                //result = "[\"1\":{\"ID\":" + i + ",\"lightstatus\":" + NewStatus + "},\"2\":{\"ID\":\" + i + \",\\\"lightstatus\\\":\" + NewStatus + \"}]";
                 //result = "[1:{ID:1,lightstatus:1},2:{ID:2,lightstatus:0}]";
                 // System.out.println(NewStatus);
                 JSONArray jay = new JSONArray(result);
@@ -46,7 +46,7 @@ public class UpdateService extends IntentService {
                     JSONObject tmp = (JSONObject) jay.get(j);
                     //updateLists.add(new UpdateList("light", i, tmp.getInt("lightstatus")));
                     updateLists.add(new UpdateList("light", j, tmp.getInt("lightstatus")));
-                   // System.out.println("ID = " + i + " status = " + tmp.getInt("lightstatus"));
+                    // System.out.println("ID = " + i + " status = " + tmp.getInt("lightstatus"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -64,7 +64,11 @@ public class UpdateService extends IntentService {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
+
+        int status = (int) (Math.random() * 2);
+        System.out.println("random status = " + status);
+        updateLists.add(new UpdateList("light", 1, status));
 
         Intent date = new Intent();
         Bundle bundle = new Bundle();

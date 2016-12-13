@@ -56,7 +56,7 @@ public class ParkingLotFragment extends Fragment {
             Intent intent = new Intent(getActivity(), UpdateService.class);
             // 启动IntentService
             getActivity().startService(intent);
-            handler.postDelayed(this, 100);
+            handler.postDelayed(this, 1000);
         }
     };
 
@@ -84,10 +84,6 @@ public class ParkingLotFragment extends Fragment {
         //初始化组件Onclick事件
         setItemsListener();
 
-        //传送lights和cameras给rangeView
-        rangeView = (RangeView) rootView.findViewById(R.id.rangeView);
-        rangeView.setList(lights, cameras);
-
         handler.postDelayed(runnable, 100);                                                         //每0.1秒执行一次runnable.
 
         //注册广播接收器
@@ -101,17 +97,23 @@ public class ParkingLotFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*List<UpdateList> updateLists = new ArrayList<>();
+        List<UpdateList> updateLists = new ArrayList<>();
         updateLists.add(new UpdateList("light", 1, -1));
-        updateLists.add(new UpdateList("light", 0, 1));
+        updateLists.add(new UpdateList("light", 2, 0));
+        updateLists.add(new UpdateList("light", 3, 1));
+        updateLists.add(new UpdateList("floorLight", 1, -1));
+        updateLists.add(new UpdateList("floorLight", 2, 0));
+        updateLists.add(new UpdateList("floorLight", 3, 1));
         updateLists.add(new UpdateList("camera", 1, -1));
-        updateLists.add(new UpdateList("camera", 0, 1));
-        updateLists.add(new UpdateList("hydrant", 0, 1));
+        updateLists.add(new UpdateList("camera", 2, 0));
+        updateLists.add(new UpdateList("camera", 3, 1));
         updateLists.add(new UpdateList("hydrant", 1, -1));
-        updateLists.add(new UpdateList("parkingspace", 2, -1));
+        updateLists.add(new UpdateList("hydrant", 2, 0));
+        updateLists.add(new UpdateList("hydrant", 3, 1));
+        updateLists.add(new UpdateList("parkingspace", 1, -1));
+        updateLists.add(new UpdateList("parkingspace", 2, 0));
         updateLists.add(new UpdateList("parkingspace", 3, 1));
-        updateLists.add(new UpdateList("parkingspace", 1, 0));
-        changeItemsStatus(updateLists);*/
+        changeItemsStatus(updateLists);
     }
 
     @Override
@@ -292,6 +294,8 @@ public class ParkingLotFragment extends Fragment {
 
     //更新控件的实时状态
     public void changeItemsStatus(List<UpdateList> updateList) {
+        final int random = (int) (Math.random() * 100);
+        System.out.println("key = " + random + " step = 1");
         for (int i = 0; i < updateList.size(); i++) {
             final UpdateList tmp = updateList.get(i);
             new Thread() {
@@ -303,13 +307,15 @@ public class ParkingLotFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
                             if (tmp.getItemKind().equals("light")) {
                                 if (!lights.isEmpty()) {
                                     for (int i = 0; i < lights.size(); i++) {
                                         light = lights.get(i);
                                         if (light.getID() == tmp.getID()) {
+                                            System.out.println("key = " + random + " step = 2");
+                                            System.out.println("lightsss = " + tmp.getNewStatus());
                                             light.setSTATUS(tmp.getNewStatus());
+                                            updateRangeView();
                                             break;
                                         }
                                     }
@@ -320,6 +326,7 @@ public class ParkingLotFragment extends Fragment {
                                         camera = cameras.get(i);
                                         if (camera.getID() == tmp.getID()) {
                                             camera.setSTATUS(tmp.getNewStatus());
+                                            updateRangeView();
                                             break;
                                         }
                                     }
@@ -369,6 +376,17 @@ public class ParkingLotFragment extends Fragment {
                 }
             }.start();
         }
+
+    }
+
+    public void updateRangeView(){
+        //传送lights和cameras给rangeView
+        rangeView = (RangeView) getActivity().findViewById(R.id.rangeView);
+        if (rangeView == null) {                                //activity未创建完成
+            return;
+        }
+        rangeView.setList(lights, cameras);
+        rangeView.invalidate();
     }
 
     public class UpdateListReceiver extends BroadcastReceiver {

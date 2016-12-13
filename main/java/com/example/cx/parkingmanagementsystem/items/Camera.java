@@ -10,7 +10,7 @@ import com.example.cx.parkingmanagementsystem.R;
  */
 public class Camera extends item {
 
-    private float cameraRange = 1;
+    private float cameraRange = 400;
     private float cameraAngle = 0;
 
     private int centreX = 0;

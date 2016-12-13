@@ -17,8 +17,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="404dp"
-        android:layout_marginTop="262dp"
+        android:layout_marginStart="354dp"
+        android:layout_marginTop="162dp"
         android:background="@drawable/hydrant_break" />
 
+    <com.example.cx.parkingmanagementsystem.items.Hydrant
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="404dp"
+        android:layout_marginTop="162dp"
+        android:background="@drawable/hydrant_break" />
 </RelativeLayout>

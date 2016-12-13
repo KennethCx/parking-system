@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,20 +41,32 @@ public class RangeView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        System.out.println("onDraw");
+        System.out.println("ondraw");
         initList();
         if (!lights.isEmpty()) {
             for (int i = 0; i < lights.size(); i++) {
                 light = lights.get(i);
-                Paint paint = new Paint();
-                paint.setColor(Color.argb(50, 50, 50, 50));
-                //System.out.println(light.getCentreX() + "  " + light.getCentreY());
-                canvas.drawCircle(light.getCentreX(), light.getCentreY(), light.getLightRange() * scale, paint);
+                if (light.getSTATUS() == 1) {
+                    Paint paint = new Paint();
+                    paint.setColor(Color.argb(50, 248, 242, 37));
+                    canvas.drawCircle(light.getCentreX(), light.getCentreY(), light.getLightRange() * scale, paint);
+                }
             }
         }
 
         if (!cameras.isEmpty()) {
-
+            for (int i = 0; i < cameras.size(); i++) {
+                camera = cameras.get(i);
+                if (camera.getSTATUS() == 1) {
+                    canvas.translate(camera.getCentreX(), camera.getCentreY());
+                    Paint paint = new Paint();
+                    paint.setColor(Color.argb(50, 0, 100, 0));
+                    float r = camera.getCameraRange() * scale;
+                    RectF rect = new RectF(-r, -r, r, r);
+                    canvas.drawArc(rect, camera.getCameraAngle(), camera.getCameraAngle() + 50, true, paint);
+                    canvas.translate(-camera.getCentreX(), -camera.getCentreY());
+                }
+            }
         }
     }
 
@@ -73,21 +86,15 @@ public class RangeView extends View {
             light = lights.get(i);
             light.setCentreX((int) (light.getWidth() / 2.0 + light.getX()));
             light.setCentreY((int) (light.getHeight() / 2.0 + light.getY()));
-            //light.setLightRange(light.getLightRange());
+        }
+        for (int i = 0; i < cameras.size(); i++) {
+            camera = cameras.get(i);
+            camera.setCentreX((int) (camera.getWidth() / 2.0 + camera.getX()));
+            camera.setCentreY((int) (camera.getHeight() / 2.0 + camera.getY()));
         }
     }
 
     public void setScale(float scale) {
         this.scale = scale;
     }
-
-    public void test() {
-        System.out.println("test succeed!");
-    }
-
-   /* @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        System.out.println("touch");
-        return false;
-    }*/
 }

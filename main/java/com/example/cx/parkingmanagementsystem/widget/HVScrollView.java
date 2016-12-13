@@ -23,6 +23,7 @@ import com.example.cx.parkingmanagementsystem.DisplayActivity;
 import com.example.cx.parkingmanagementsystem.ParkingLotFragment;
 import com.example.cx.parkingmanagementsystem.R;
 import com.example.cx.parkingmanagementsystem.RangeView;
+import com.example.cx.parkingmanagementsystem.items.Light;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_H;
 import com.example.cx.parkingmanagementsystem.items.Parkingspace_V;
 
@@ -631,26 +632,39 @@ public class HVScrollView extends FrameLayout {
                             RelativeLayout subRelativeLayout = (RelativeLayout) subRelativeLayout1.getChildAt(k);    //停车场当前层的布局
                             for (int j = 0; j < subRelativeLayout.getChildCount(); j++) {                           //遍历子布局中的控件
                                 View child = subRelativeLayout.getChildAt(j);
-                                X = child.getX() / lastScale;                                                       //获得控件原来的坐标值
-                                Y = child.getY() / lastScale;
+//                                X = child.getX() / lastScale;                                                       //获得控件原来的坐标值
+//                                Y = child.getY() / lastScale;
+                                X = (child.getX() + child.getWidth() / 2) / lastScale - child.getWidth() / 2;
+                                Y = (child.getY() + child.getHeight() / 2) / lastScale - child.getHeight() / 2;
                                 if (child instanceof Parkingspace_H) {        //如果控件是停车位则放大停车位
                                     Parkingspace_H ps = (Parkingspace_H) child;
                                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ps.getLayoutParams();
                                     layoutParams.height = (int) (ps.getHEIGHT() * scale);
                                     layoutParams.width = (int) (ps.getWIDTH() * scale);
                                     ps.setLayoutParams(layoutParams);
+                                    X = child.getX() / lastScale;                                                       //获得控件原来的左上角的坐标值
+                                    Y = child.getY() / lastScale;
+                                    child.setX(X * scale);
+                                    child.setY(Y * scale);
+                                    continue;
                                 } else if (child instanceof Parkingspace_V) {
                                     Parkingspace_V ps = (Parkingspace_V) child;
                                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ps.getLayoutParams();
                                     layoutParams.height = (int) (ps.getHEIGHT() * scale);
                                     layoutParams.width = (int) (ps.getWIDTH() * scale);
                                     ps.setLayoutParams(layoutParams);
+                                    X = child.getX() / lastScale;                                                       //获得控件原来的左上角的坐标值
+                                    Y = child.getY() / lastScale;
+                                    child.setX(X * scale);
+                                    child.setY(Y * scale);
+                                    continue;
                                 } else if (child instanceof RangeView) {
                                     ((RangeView) child).setScale(scale);
+                                    continue;
                                 }
-                                //设置缩放视图后的控件的坐标
-                                child.setX(X * scale);
-                                child.setY(Y * scale);
+                                //设置缩放视图后的控件的坐标(按控件中心设置)
+                                child.setX((X + child.getWidth() / 2) * scale - child.getWidth() / 2);
+                                child.setY((Y + child.getHeight() / 2) * scale - child.getHeight() / 2);
                             }
                         }
                     }
@@ -1494,7 +1508,7 @@ public class HVScrollView extends FrameLayout {
     /**
      * When looking for focus in children of a scroll view, need to be a little
      * more careful not to give focus to something that is scrolled off screen.
-     * <p>
+     * <p/>
      * This is more expensive than the default {@link ViewGroup}
      * implementation, otherwise this behavior might have been made the default.
      */
@@ -1656,7 +1670,7 @@ public class HVScrollView extends FrameLayout {
 
     /**
      * {@inheritDoc}
-     * <p>
+     * <p/>
      * <p>This version also clamps the scrolling to the bounds of our child.
      */
     @Override
