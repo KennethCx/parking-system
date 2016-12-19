@@ -17,7 +17,7 @@ public class ItemDetail extends PopupWindow {
     public static final int HYDRANT = 3;
     public static final int FLOORLIGHT = 4;
     private final String[][] statusContent = {
-            {"不可用", "空闲", "占用"},
+            {"不可用", "空闲", "占用","已预约"},
             {"损坏", "关闭", "开启"},
             {"损坏", "关闭", "开启"},
             {"损坏", "正常", "开启"},
@@ -39,7 +39,6 @@ public class ItemDetail extends PopupWindow {
                         @Override
                         public void run() {
                             if (type == LIGHT) {
-                                System.out.println("!!!@@!");
                                 String URL = MainActivity.url + "/seconded/android/lightturnon.php";
                                 getPostUtil.sendGet(URL, "lightID=" + ID);
                             }

@@ -26,6 +26,8 @@ public class Parkingspace_H extends item {
     //停车位宽度和长度
     private int WIDTH = 135;
     private int HEIGHT = 78;
+    private String ownerName = "";
+    private String plateNumber = "";
 
     public void setWIDTH(int WIDTH) {
         this.WIDTH = WIDTH;
@@ -43,11 +45,30 @@ public class Parkingspace_H extends item {
         return this.HEIGHT;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
+
     public void setBackground() {
         if (STATUS == 0) {
             this.setBackgroundResource(R.drawable.parkingspace_horizontal_empty);
         } else if (STATUS == 1) {
             this.setBackgroundResource(R.drawable.parkingspace_horizontal_occupied);
+
+        } else if (STATUS == 2) {
+            this.setBackgroundResource(R.drawable.parkingspace_horizontal_reserved);
         } else if (STATUS == -1) {
             this.setBackgroundResource(R.drawable.parkingspace_horizontal_unusable);
         }

@@ -37,7 +37,6 @@ public class RangeView_Light extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        System.out.println("ondraw");
         initList();
         if (!lights.isEmpty()) {
             for (int i = 0; i < lights.size(); i++) {

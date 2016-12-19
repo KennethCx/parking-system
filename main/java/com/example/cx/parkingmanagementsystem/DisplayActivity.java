@@ -1,12 +1,10 @@
 package com.example.cx.parkingmanagementsystem;
 
 import android.app.FragmentTransaction;
-import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Range;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -32,6 +30,8 @@ public class DisplayActivity extends AppCompatActivity {
     private SwitchButton hydrantButton;
     private SwitchButton lightButton;
     private SwitchButton cameraButton;
+    private SwitchButton lightRangeButton;
+    private SwitchButton cameraRangeButton;
     private boolean showButton;
     public static int[][] layout = {{R.layout.floor_1_light_layout, R.layout.floor_2_light_layout, R.layout.floor_3_light_layout},
             {R.layout.floor_1_parkingspace_layout, R.layout.floor_2_parkingspace_layout, R.layout.floor_3_parkingspace_layout},
@@ -67,6 +67,10 @@ public class DisplayActivity extends AppCompatActivity {
                     cameraButton.setChecked(true);
                     hydrantButton.setBackgroundResource(R.drawable.fab_button_hydrant_on);
                     hydrantButton.setChecked(true);
+                    lightRangeButton.setBackgroundResource(R.drawable.light_range_on);
+                    lightRangeButton.setChecked(true);
+                    cameraRangeButton.setBackgroundResource(R.drawable.camera_range_on);
+                    cameraRangeButton.setChecked(true);
                 }
             }
 
@@ -82,6 +86,8 @@ public class DisplayActivity extends AppCompatActivity {
         hydrantButton = (SwitchButton) findViewById(R.id.fab_button_hydrant);
         cameraButton = (SwitchButton) findViewById(R.id.fab_button_camera);
         lightButton = (SwitchButton) findViewById(R.id.fab_button_light);
+        lightRangeButton = (SwitchButton) findViewById(R.id.button_lightRange);
+        cameraRangeButton = (SwitchButton) findViewById(R.id.button_cameraRange);
         if (type == 4) {
             fab.setVisibility(View.VISIBLE);
             showButton = false;
@@ -129,6 +135,8 @@ public class DisplayActivity extends AppCompatActivity {
                         rangeView_light.setVisibility(View.GONE);
                         lightButton.setBackgroundResource(R.drawable.fab_button_light);
                         lightButton.setChecked(false);
+                        lightRangeButton.setBackgroundResource(R.drawable.light_range_off);
+                        lightRangeButton.setChecked(false);
                     } else {
                         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.lightView);
                         relativeLayout.setVisibility(View.VISIBLE);
@@ -136,6 +144,8 @@ public class DisplayActivity extends AppCompatActivity {
                         rangeView_light.setVisibility(View.VISIBLE);
                         lightButton.setBackgroundResource(R.drawable.fab_button_light_on);
                         lightButton.setChecked(true);
+                        lightRangeButton.setBackgroundResource(R.drawable.light_range_on);
+                        lightRangeButton.setChecked(true);
                     }
                 }
             });
@@ -149,6 +159,8 @@ public class DisplayActivity extends AppCompatActivity {
                         rangeView_camera.setVisibility(View.GONE);
                         cameraButton.setBackgroundResource(R.drawable.fab_button_camera);
                         cameraButton.setChecked(false);
+                        cameraRangeButton.setBackgroundResource(R.drawable.camera_range_off);
+                        cameraRangeButton.setChecked(false);
                     } else {
                         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.cameraView);
                         relativeLayout.setVisibility(View.VISIBLE);
@@ -156,6 +168,8 @@ public class DisplayActivity extends AppCompatActivity {
                         rangeView_camera.setVisibility(View.VISIBLE);
                         cameraButton.setBackgroundResource(R.drawable.fab_button_camera_on);
                         cameraButton.setChecked(true);
+                        cameraRangeButton.setBackgroundResource(R.drawable.camera_range_on);
+                        cameraRangeButton.setChecked(true);
                     }
                 }
             });
@@ -181,6 +195,52 @@ public class DisplayActivity extends AppCompatActivity {
             hydrantButton.setVisibility(View.GONE);
             cameraButton.setVisibility(View.GONE);
             lightButton.setVisibility(View.GONE);
+        }
+
+        //照明与摄像头范围开关按钮
+
+        if (type == 0 || type == 4) {
+            lightRangeButton.setVisibility(View.VISIBLE);
+            lightRangeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (lightRangeButton.getChecked()) {
+                        RangeView_Light rangeView_light = (RangeView_Light) findViewById(R.id.rangeView_Light);
+                        rangeView_light.setVisibility(View.GONE);
+                        lightRangeButton.setBackgroundResource(R.drawable.light_range_off);
+                        lightRangeButton.setChecked(false);
+                    } else {
+                        RangeView_Light rangeView_light = (RangeView_Light) findViewById(R.id.rangeView_Light);
+                        rangeView_light.setVisibility(View.VISIBLE);
+                        lightRangeButton.setBackgroundResource(R.drawable.light_range_on);
+                        lightRangeButton.setChecked(true);
+                    }
+                }
+            });
+        } else {
+            lightRangeButton.setVisibility(View.GONE);
+        }
+
+        if (type == 3 || type == 4) {
+            cameraRangeButton.setVisibility(View.VISIBLE);
+            cameraRangeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (cameraRangeButton.getChecked()) {
+                        RangeView_Camera rangeView_camera = (RangeView_Camera) findViewById(R.id.rangeView_Camera);
+                        rangeView_camera.setVisibility(View.GONE);
+                        cameraRangeButton.setBackgroundResource(R.drawable.camera_range_off);
+                        cameraRangeButton.setChecked(false);
+                    } else {
+                        RangeView_Camera rangeView_camera = (RangeView_Camera) findViewById(R.id.rangeView_Camera);
+                        rangeView_camera.setVisibility(View.VISIBLE);
+                        cameraRangeButton.setBackgroundResource(R.drawable.camera_range_on);
+                        cameraRangeButton.setChecked(true);
+                    }
+                }
+            });
+        } else {
+            cameraRangeButton.setVisibility(View.GONE);
         }
     }
 

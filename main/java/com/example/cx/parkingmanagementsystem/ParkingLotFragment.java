@@ -55,7 +55,7 @@ public class ParkingLotFragment extends Fragment {
             Intent intent = new Intent(getActivity(), UpdateService.class);
             // 启动IntentService
             getActivity().startService(intent);
-            handler.postDelayed(this, 1000);
+            handler.postDelayed(this, 100);
         }
     };
 
@@ -112,6 +112,7 @@ public class ParkingLotFragment extends Fragment {
         updateLists.add(new UpdateList("parkingspace", 1, 1));
         updateLists.add(new UpdateList("parkingspace", 2, 0));
         updateLists.add(new UpdateList("parkingspace", 3,-1));
+        updateLists.add(new UpdateList("parkingspace", 4, 2));
         changeItemsStatus(updateLists);*/
     }
 
@@ -197,13 +198,14 @@ public class ParkingLotFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     parkingspace_v = (Parkingspace_V) view;
-                    View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
-                    final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    View root = getActivity().getLayoutInflater().inflate(R.layout.parkingspace_detail, null);
+                    final ParkingSpaceDetail parkingSpaceDetail = new ParkingSpaceDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-                    itemDetail.setBackgroundDrawable(new BitmapDrawable());
-                    itemDetail.setDetail(ItemDetail.PARKINGSPACE, parkingspace_v.getID(), parkingspace_v.getSTATUS() + 1);
+                    parkingSpaceDetail.setBackgroundDrawable(new BitmapDrawable());
+                    parkingSpaceDetail.setDetail(parkingspace_v.getID(), parkingspace_v.getSTATUS() + 1,
+                            parkingspace_v.getOwnerName(), parkingspace_v.getPlateNumber());
                     //设置在控件下出现
-                    itemDetail.showAsDropDown(view);
+                    parkingSpaceDetail.showAsDropDown(view);
                 }
             });
         }
@@ -213,13 +215,14 @@ public class ParkingLotFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     parkingspace_h = (Parkingspace_H) view;
-                    View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
-                    final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    View root = getActivity().getLayoutInflater().inflate(R.layout.parkingspace_detail, null);
+                    final ParkingSpaceDetail parkingSpaceDetail = new ParkingSpaceDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT, true);
-                    itemDetail.setBackgroundDrawable(new BitmapDrawable());
-                    itemDetail.setDetail(ItemDetail.PARKINGSPACE, parkingspace_h.getID(), parkingspace_h.getSTATUS() + 1);
+                    parkingSpaceDetail.setBackgroundDrawable(new BitmapDrawable());
+                    parkingSpaceDetail.setDetail(parkingspace_h.getID(), parkingspace_h.getSTATUS() + 1,
+                            parkingspace_h.getOwnerName(), parkingspace_h.getPlateNumber());
                     //设置在控件下出现
-                    itemDetail.showAsDropDown(view);
+                    parkingSpaceDetail.showAsDropDown(view);
                 }
             });
         }
@@ -229,8 +232,6 @@ public class ParkingLotFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     light = (Light) view;
-                    //Toast.makeText(getActivity(), "i am light" + light.getID(), Toast.LENGTH_SHORT).show();
-
                     View root = getActivity().getLayoutInflater().inflate(R.layout.item_detail, null);
                     final ItemDetail itemDetail = new ItemDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT, true);
@@ -375,7 +376,7 @@ public class ParkingLotFragment extends Fragment {
 
     }
 
-    public void updateRangeView_Light(){
+    public void updateRangeView_Light() {
         //传送lights和cameras给rangeView
         rangeViewLight = (RangeView_Light) getActivity().findViewById(R.id.rangeView_Light);
         if (rangeViewLight == null) {                                //activity未创建完成
@@ -385,7 +386,7 @@ public class ParkingLotFragment extends Fragment {
         rangeViewLight.invalidate();
     }
 
-    public void updateRangeView_Camera(){
+    public void updateRangeView_Camera() {
         //传送lights和cameras给rangeView
         rangeViewCamera = (RangeView_Camera) getActivity().findViewById(R.id.rangeView_Camera);
         if (rangeViewCamera == null) {                                //activity未创建完成

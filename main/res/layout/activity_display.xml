@@ -83,6 +83,23 @@
         android:background="@drawable/fab_button_light_on"
         android:visibility="gone" />
 
+    <com.example.cx.parkingmanagementsystem.widget.SwitchButton
+        android:id="@+id/button_lightRange"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/light_range_on"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        />
+    <com.example.cx.parkingmanagementsystem.widget.SwitchButton
+        android:id="@+id/button_cameraRange"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/camera_range_on"
+        android:layout_gravity="end|center"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="10dp"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
