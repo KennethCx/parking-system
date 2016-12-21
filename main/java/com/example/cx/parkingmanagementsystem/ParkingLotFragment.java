@@ -96,7 +96,7 @@ public class ParkingLotFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*List<UpdateList> updateLists = new ArrayList<>();
+        List<UpdateList> updateLists = new ArrayList<>();
         updateLists.add(new UpdateList("light", 1, 1));
         updateLists.add(new UpdateList("light", 2, 0));
         updateLists.add(new UpdateList("light", 3, -1));
@@ -111,9 +111,9 @@ public class ParkingLotFragment extends Fragment {
         updateLists.add(new UpdateList("hydrant", 3, -1));
         updateLists.add(new UpdateList("parkingspace", 1, 1));
         updateLists.add(new UpdateList("parkingspace", 2, 0));
-        updateLists.add(new UpdateList("parkingspace", 3,-1));
+        updateLists.add(new UpdateList("parkingspace", 3, -1));
         updateLists.add(new UpdateList("parkingspace", 4, 2));
-        changeItemsStatus(updateLists);*/
+        changeItemsStatus(updateLists);
     }
 
     @Override
@@ -200,10 +200,10 @@ public class ParkingLotFragment extends Fragment {
                     parkingspace_v = (Parkingspace_V) view;
                     View root = getActivity().getLayoutInflater().inflate(R.layout.parkingspace_detail, null);
                     final ParkingSpaceDetail parkingSpaceDetail = new ParkingSpaceDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
-                            RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, true, getActivity());
                     parkingSpaceDetail.setBackgroundDrawable(new BitmapDrawable());
                     parkingSpaceDetail.setDetail(parkingspace_v.getID(), parkingspace_v.getSTATUS() + 1,
-                            parkingspace_v.getOwnerName(), parkingspace_v.getPlateNumber());
+                            parkingspace_v.getOwnerName(), parkingspace_v.getPlateNumber(), parkingspace_v.getPhoneNumber());
                     //设置在控件下出现
                     parkingSpaceDetail.showAsDropDown(view);
                 }
@@ -217,10 +217,10 @@ public class ParkingLotFragment extends Fragment {
                     parkingspace_h = (Parkingspace_H) view;
                     View root = getActivity().getLayoutInflater().inflate(R.layout.parkingspace_detail, null);
                     final ParkingSpaceDetail parkingSpaceDetail = new ParkingSpaceDetail(root, RelativeLayout.LayoutParams.WRAP_CONTENT,
-                            RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, true, getActivity());
                     parkingSpaceDetail.setBackgroundDrawable(new BitmapDrawable());
                     parkingSpaceDetail.setDetail(parkingspace_h.getID(), parkingspace_h.getSTATUS() + 1,
-                            parkingspace_h.getOwnerName(), parkingspace_h.getPlateNumber());
+                            parkingspace_h.getOwnerName(), parkingspace_h.getPlateNumber(), parkingspace_h.getPhoneNumber());
                     //设置在控件下出现
                     parkingSpaceDetail.showAsDropDown(view);
                 }

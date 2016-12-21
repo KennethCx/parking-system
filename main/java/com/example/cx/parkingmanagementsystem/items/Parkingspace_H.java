@@ -28,6 +28,7 @@ public class Parkingspace_H extends item {
     private int HEIGHT = 78;
     private String ownerName = "";
     private String plateNumber = "";
+    private String phoneNumber = "";
 
     public void setWIDTH(int WIDTH) {
         this.WIDTH = WIDTH;
@@ -53,12 +54,20 @@ public class Parkingspace_H extends item {
         return plateNumber;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
 
     public void setPlateNumber(String plateNumber) {
         this.plateNumber = plateNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setBackground() {
